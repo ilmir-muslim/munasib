@@ -9,6 +9,8 @@ from sqlalchemy import (
     ForeignKey,
 )
 from databases import Database
+from alembic import command
+from alembic.config import Config
 
 DATABASE_URL = "sqlite:///./test.db"  # Путь к SQLite базе данных
 
@@ -49,7 +51,10 @@ workers = Table(
     metadata,
     Column("id", Integer, primary_key=True),
     Column("name", String(50)),
-    Column("work_place", String(50))  # Имя работника
+    Column("work_place", String(50)),
+    Column("id_telegram", String(50)),
+    Column("language", String(50)),
 )
+
 
 metadata.create_all(engine)  # Создаем таблицы в базе данных

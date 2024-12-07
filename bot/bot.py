@@ -2,7 +2,8 @@ import os
 import logging
 from dotenv import load_dotenv, find_dotenv
 from aiogram import Bot, Dispatcher
-from .handlers import register_handlers  # Используем относительный путь
+from aiogram.fsm.storage.memory import MemoryStorage
+from bot.handlers import register_handlers
 
 # Загрузка переменных окружения
 load_dotenv(find_dotenv())
@@ -24,7 +25,9 @@ if not token:
 bot = Bot(token=token)
 bot.parse_mode = "HTML"  # Установка parse_mode через свойство
 
-dp = Dispatcher()
+# Использование MemoryStorage для FSM
+storage = MemoryStorage()
+dp = Dispatcher(storage=storage)
 
 # Регистрация обработчиков
 register_handlers(dp)

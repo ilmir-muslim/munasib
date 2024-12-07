@@ -1,0 +1,10 @@
+{
+    "welcome_back": "أهلاً بعودتك!",
+    "enter_password": "يرجى إدخال كلمة المرور:",
+    "incorrect_password": "كلمة المرور غير صحيحة. حاول مرة اخرى.",
+    "enter_name": "يرجى إدخال اسمك:",
+    "select_work_place": "يرجى اختيار مكان عملك:",
+    "select_language": "اللغة",
+    "registration_completed": "اكتملت عملية التسجيل. أهلاً بك!",
+    "registration_failed": "فشل التسجيل. يرجى المحاولة مرة أخرى لاحقًا."
+}

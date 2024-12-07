@@ -1,0 +1,10 @@
+{
+    "welcome_back": "Welcome back!",
+    "enter_password": "Please enter the password:",
+    "incorrect_password": "Incorrect password. Please try again.",
+    "enter_name": "Please enter your name:",
+    "select_work_place": "Please select your work place:",
+    "select_language": "Language",
+    "registration_completed": "Registration completed. Welcome!",
+    "registration_failed": "Registration failed. Please try again later."
+}
