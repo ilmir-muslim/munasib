@@ -1,0 +1,74 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-12-27 01:01+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+#: admins_panel/models.py:6 admins_panel/models.py:11
+msgid "Работник"
+msgstr "Worker"
+
+#: admins_panel/models.py:7
+msgid "Место работы"
+msgstr "Workplace"
+
+#: admins_panel/models.py:8
+msgid "Права админа"
+msgstr "Admin rights"
+
+#: admins_panel/models.py:12
+msgid "Работники"
+msgstr "Workers"
+
+#: admins_panel/models.py:16 admins_panel/models.py:25
+msgid "Операции"
+msgstr "Operations"
+
+#: admins_panel/models.py:18
+msgid "Дата выполнения операции"
+msgstr "Operation date"
+
+#: admins_panel/models.py:19
+msgid "Время выполнения операции"
+msgstr "Operation time"
+
+#: admins_panel/models.py:20
+msgid "Количество выполненных операций"
+msgstr "Number of operations performed"
+
+#: admins_panel/models.py:21
+msgid "Цена операции"
+msgstr "Operation cost"
+
+#: admins_panel/models.py:24
+msgid "Операция"
+msgstr "Operation"
+
+#: admins_panel/models.py:29 admins_panel/models.py:34
+msgid "Товар"
+msgstr "Product"
+
+#: admins_panel/models.py:30
+msgid "Цена товара"
+msgstr "Product price"
+
+#: admins_panel/models.py:31
+msgid "Количество товара"
+msgstr "Product quantity"
+
+#: admins_panel/models.py:35
+msgid "Товары"
+msgstr "Products"
