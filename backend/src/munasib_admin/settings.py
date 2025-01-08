@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "rest_framework",
 
     "admins_panel",
+    "worker_ui",
 ]
 
 MIDDLEWARE = [

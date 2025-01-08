@@ -72,3 +72,7 @@ msgstr "Mahsulot miqdori"
 #: admins_panel/models.py:35
 msgid "Товары"
 msgstr "Mahsulotlar"
+
+#: templates/base_site.html:16
+msgid "Language"
+msgstr "til"

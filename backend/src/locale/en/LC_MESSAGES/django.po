@@ -72,3 +72,7 @@ msgstr "Product quantity"
 #: admins_panel/models.py:35
 msgid "Товары"
 msgstr "Products"
+
+#: templates/base_site.html:16
+msgid "Language"
+msgstr "Language"

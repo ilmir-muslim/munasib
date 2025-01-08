@@ -73,3 +73,7 @@ msgstr "كمية البضاعة"
 #: admins_panel/models.py:35
 msgid "Товары"
 msgstr "بضائع"
+
+#: templates/base_site.html:16
+msgid "Language"
+msgstr "لغة"
