@@ -1,3 +1,4 @@
+from decimal import Decimal
 from admins_panel.models import Worker, Operations
 
 def process_operation(worker_id, operation_id, quantity):
@@ -8,5 +9,5 @@ def process_operation(worker_id, operation_id, quantity):
 
 def pay_salary(worker_id, amount):
     worker = Worker.objects.get(id=worker_id)
-    worker.deduct_salary(amount)
+    worker.deduct_salary(Decimal(amount))
 

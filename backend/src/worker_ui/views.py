@@ -1,11 +1,13 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from decimal import Decimal
 from .services import pay_salary, process_operation
 
 
 @api_view(["POST"])
 def pay_salary_view(request, worker_id):
     amount = request.data.get("amount")
+    amount = Decimal(amount)
     pay_salary(worker_id, amount)
     return Response({"status": "salary deducted"}, status=200)
 
