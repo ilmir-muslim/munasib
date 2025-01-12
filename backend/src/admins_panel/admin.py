@@ -1,13 +1,9 @@
 from django.contrib import admin
 
-from .models import Worker, Operations, Goods, WorksDone
+from .models import Worker, Operation, Goods, OperationLog
 
 
-class WorkerAdmin(admin.ModelAdmin):
-    fields = ["name", "work_place", "admins_rights"]
-    readonly_fields = ["salary"]
-
-admin.site.register(Worker, WorkerAdmin)
-admin.site.register(Operations)
+admin.site.register(Worker)
+admin.site.register(Operation)
 admin.site.register(Goods)
-admin.site.register(WorksDone)
+admin.site.register(OperationLog)

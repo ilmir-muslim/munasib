@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-^*@y_o&b)mx0at#-9m6lsx+g#88(12cxm-b2f%t8zxm(--^8q3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.8.24']
 
 
 # Application definition
@@ -40,9 +40,10 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "django_tables2",
 
     "admins_panel",
-    "worker_ui",
+    "worker_api",
 ]
 
 MIDDLEWARE = [
@@ -68,6 +69,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                
             ],
         },
     },
@@ -127,3 +129,12 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    "DEFAULT_RENDERER_CLASSES": [
+        "rest_framework.renderers.JSONRenderer",
+    ],
+    "DEFAULT_PARSER_CLASSES": [
+        "rest_framework.parsers.JSONParser",
+    ],
+}
