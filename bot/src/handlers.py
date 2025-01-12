@@ -2,7 +2,7 @@ from aiogram import Dispatcher, types
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
-from src.utils import check_user_exists, get_admin_list, register_user
+from src.utils import check_user_exists, register_user, check_admins_rights
 from src.keyboards import work_place_keyboard
 
 
@@ -17,9 +17,9 @@ async def cmd_start(message: types.Message, state: FSMContext):
     user_id = message.from_user.id
 
     if await check_user_exists(user_id):
-        admin_list = await get_admin_list()
+        admin_rights = await check_admins_rights(user_id)
         await message.answer("Welcome back!")
-        if user_id in admin_list:
+        if admin_rights:
             await message.answer("Your admin link is http://127.0.0.1:8000/admin")
     else:
         await message.answer("Please enter the password:")
@@ -28,9 +28,9 @@ async def cmd_start(message: types.Message, state: FSMContext):
 
 async def password_received(message: types.Message, state: FSMContext):
     """Обработчик получения пароля."""
-    CORRECT_PASSWORD = "1"  # Замените на реальный пароль
+    correct_password = "1"  # Замените на реальный пароль
 
-    if message.text != CORRECT_PASSWORD:
+    if message.text != correct_password:
         await message.answer("Incorrect password. Please try again.")
         return
 

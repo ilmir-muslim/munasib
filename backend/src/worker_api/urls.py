@@ -1,18 +1,18 @@
 from django.urls import path
-from .views import RecordOperationView
-
-# from .views import pay_salary_view, process_operation_view
-
-# urlpatterns = [
-#     path("workers/<int:worker_id>/pay_salary/", pay_salary_view, name="pay_salary_view"),
-#     path(
-#         "workers/<int:worker_id>/operations/<int:operation_id>/process/",
-#         process_operation_view,
-#         name="process_operation_view",
-#     ),
-# ]
+from .views import CheckAdminsRightsView, CheckTelegramIdView, RecordOperationView, RegisterNewUserView
 
 
 urlpatterns = [
     path("record_operation/", RecordOperationView.as_view(), name="record_operation"),
+    path(
+        "check_telegram_id/<int:id_telegram>/",
+        CheckTelegramIdView.as_view(),
+        name="check_telegram_id",
+    ),
+    path("register_user/", RegisterNewUserView.as_view(), name="register_user"),
+    path(
+        "check_admins_rights/<int:id_telegram>/",
+        CheckAdminsRightsView.as_view(),
+        name="check_admins_rights",
+    ),
 ]

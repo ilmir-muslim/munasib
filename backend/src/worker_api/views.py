@@ -65,7 +65,7 @@ class CheckTelegramIdView(APIView):
         except Worker.DoesNotExist:
             return Response({"exists": False})
         
-        
+
 class RegisterNewUserView(APIView):
     permission_classes = [AllowAny]  # Позволяет доступ без авторизации
 
@@ -90,3 +90,14 @@ class RegisterNewUserView(APIView):
             {"message": "User successfully registered."},
             status=status.HTTP_201_CREATED,
         )
+    
+class CheckAdminsRightsView(APIView):
+    permission_classes = [AllowAny]  # Позволяет доступ без авторизации
+
+    def get(self, request, id_telegram):
+        try:
+            worker = Worker.objects.get(id_telegram=id_telegram)
+            return Response({"admins_rights": worker.admins_rights})
+        
+        except Worker.DoesNotExist:
+            return Response({'error': 'Worker not found'}, status=404)
