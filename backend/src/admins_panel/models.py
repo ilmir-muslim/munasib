@@ -5,10 +5,33 @@ from django.dispatch import receiver
 from django.utils.timezone import now
 
 
+class Operation(models.Model):
+    name = models.CharField("Операции", max_length=50)
+    price = models.DecimalField("Цена операции", max_digits=10, decimal_places=2)
+
+    class Meta:
+        verbose_name = "Операция"
+        verbose_name_plural = "Операции"
+
+    def __str__(self):
+        return self.name
+
+
+class Position(models.Model):
+    name = models.CharField("Должность", max_length=50)
+    default_operation = models.ForeignKey(Operation, on_delete=models.CASCADE)
+    admins_rights = models.BooleanField("Права админа", default=False)
+
+    class Meta:
+        verbose_name = "Должность"
+        verbose_name_plural = "Должности"
+
+    def __str__(self):
+        return self.name
+
 class Worker(models.Model):
     name = models.CharField("Работник", max_length=50)
-    work_place = models.CharField("Место работы", max_length=50)
-    admins_rights = models.BooleanField("Права админа", default=False)
+    position = models.ForeignKey(Position, on_delete=models.CASCADE, null=True)
     id_telegram = models.IntegerField("ID телеграм", unique=True, null=True)
     salary = models.DecimalField("зарплата", max_digits=10, decimal_places=2, default=0)
 
@@ -26,19 +49,6 @@ class Worker(models.Model):
     def deduct_salary(self, amount):
         self.salary -= Decimal(amount)
         self.save()
-
-
-class Operation(models.Model):
-    name = models.CharField("Операции", max_length=50)
-    price = models.DecimalField("Цена операции", max_digits=10, decimal_places=2)
-
-    class Meta:
-        verbose_name = "Операция"
-        verbose_name_plural = "Операции"
-
-    def __str__(self):
-        return self.name
-
 
 class OperationLog(models.Model):
     worker = models.ForeignKey(Worker, on_delete=models.CASCADE)

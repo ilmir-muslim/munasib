@@ -4,7 +4,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from admins_panel.models import Operation, OperationLog, Worker
+from admins_panel.models import Operation, OperationLog, Position, Worker
 
 
 class RecordOperationView(APIView):
@@ -64,7 +64,7 @@ class CheckTelegramIdView(APIView):
             return Response({"exists": True})
         except Worker.DoesNotExist:
             return Response({"exists": False})
-        
+
 
 class RegisterNewUserView(APIView):
     permission_classes = [AllowAny]  # Позволяет доступ без авторизации
@@ -72,32 +72,43 @@ class RegisterNewUserView(APIView):
     def post(self, request):
         # Извлечение данных из запроса
         name = request.data.get("name")
-        work_place = request.data.get("work_place")
+        position_id = request.data.get("position_id")
         id_telegram = request.data.get("id_telegram")
 
         # Валидация входных данных
-        if not all([name, work_place, id_telegram]):
+        if not all([name, position_id, id_telegram]):
             return Response(
-                {"error": "name, work_place, and id_telegram are required."},
+                {"error": "name, position_id, and id_telegram are required."},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
         # Создание нового пользователя
-        Worker.objects.create(name=name, work_place=work_place, id_telegram=id_telegram)
+        Worker.objects.create(name=name, position_id=position_id, id_telegram=id_telegram)
 
         # Ответ пользователю
         return Response(
             {"message": "User successfully registered."},
             status=status.HTTP_201_CREATED,
         )
-    
+
 class CheckAdminsRightsView(APIView):
     permission_classes = [AllowAny]  # Позволяет доступ без авторизации
 
     def get(self, request, id_telegram):
         try:
             worker = Worker.objects.get(id_telegram=id_telegram)
-            return Response({"admins_rights": worker.admins_rights})
-        
+            return Response({"admins_rights": worker.position.admins_rights})
+
         except Worker.DoesNotExist:
             return Response({'error': 'Worker not found'}, status=404)
+        except Position.DoesNotExist:
+            return Response({'error': 'Position not found'}, status=404)
+
+class Positions(APIView):
+    permission_classes = [AllowAny]  # Позволяет доступ без авторизации
+
+    def get(self, request):
+        positions = Position.objects.all()
+        return Response(
+            {"positions": [{"id": position.id, "name": position.name} for position in positions]}
+        )

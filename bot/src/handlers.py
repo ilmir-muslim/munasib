@@ -2,14 +2,15 @@ from aiogram import Dispatcher, types
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
-from src.utils import check_user_exists, register_user, check_admins_rights
-from src.keyboards import work_place_keyboard
+
+from src.keyboards import position_keyboard
+from src.utils import check_admins_rights, check_user_exists, register_user
 
 
 class RegisterStates(StatesGroup):
     waiting_for_password = State()
     waiting_for_name = State()
-    waiting_for_work_place = State()
+    waiting_for_position = State()
 
 
 async def cmd_start(message: types.Message, state: FSMContext):
@@ -42,19 +43,20 @@ async def password_received(message: types.Message, state: FSMContext):
 async def name_received(message: types.Message, state: FSMContext):
     """Обработчик получения имени."""
     await state.update_data(name=message.text)
-    await message.answer("Please select your work place:", reply_markup=work_place_keyboard())
-    await state.set_state(RegisterStates.waiting_for_work_place)
+    keyboard = await position_keyboard()
+    await message.answer("Please select your work place:", reply_markup=keyboard)
+    await state.set_state(RegisterStates.waiting_for_position)
 
 
-async def work_place_received(callback_query: types.CallbackQuery, state: FSMContext):
+async def position_received(callback_query: types.CallbackQuery, state: FSMContext):
     """Обработчик получения места работы."""
-    await state.update_data(work_place=callback_query.data.split("_")[2])
-    data = await state.get_data()  # Обновляем данные состояния после добавления work_place
+    await state.update_data(position_id=callback_query.data.split("_")[1])
+    data = await state.get_data()
 
     try:
         await register_user(
             name=data["name"],
-            work_place=data["work_place"],
+            position_id=data["position_id"],
             id_telegram=callback_query.from_user.id,
         )
         await callback_query.message.answer("Registration completed successfully!")
@@ -69,4 +71,4 @@ def register_handlers(dp: Dispatcher):
     dp.message.register(cmd_start, Command("start"))
     dp.message.register(password_received, RegisterStates.waiting_for_password)
     dp.message.register(name_received, RegisterStates.waiting_for_name)
-    dp.callback_query.register(work_place_received, RegisterStates.waiting_for_work_place)
+    dp.callback_query.register(position_received, RegisterStates.waiting_for_position)

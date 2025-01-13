@@ -1,10 +1,13 @@
 from aiogram import types
 
+from src.utils import get_positions
 
-def work_place_keyboard():
-    """Создание клавиатуры для выбора места работы."""
+
+async def position_keyboard():
+    """Создание динамической клавиатуры для выбора места работы."""
+    positions = await get_positions()
     buttons = [
-        [types.InlineKeyboardButton(text="Таркиб", callback_data="work_place_tarkib")],
-        [types.InlineKeyboardButton(text="Тадрис", callback_data="work_place_tadris")],
+        [types.InlineKeyboardButton(text=pos["name"], callback_data=f"position_{pos['id']}")]
+        for pos in positions
     ]
     return types.InlineKeyboardMarkup(inline_keyboard=buttons)

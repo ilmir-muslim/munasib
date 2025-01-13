@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import CheckAdminsRightsView, CheckTelegramIdView, RecordOperationView, RegisterNewUserView
+from .views import CheckAdminsRightsView, CheckTelegramIdView, Positions, RecordOperationView, RegisterNewUserView
 
 
 urlpatterns = [
@@ -15,4 +15,5 @@ urlpatterns = [
         CheckAdminsRightsView.as_view(),
         name="check_admins_rights",
     ),
+    path("positions/", Positions.as_view(), name="positions"),
 ]
