@@ -1,3 +1,4 @@
+from django.utils.timezone import now
 from rest_framework import status
 from rest_framework.exceptions import NotFound
 from rest_framework.permissions import AllowAny
@@ -42,7 +43,9 @@ class RecordOperationView(APIView):
         try:
             operation = Operation.objects.get(id=operation_id)
         except Operation.DoesNotExist as exc:
-            raise NotFound({"error": f"Operation with id {operation_id} not found."}) from exc
+            raise NotFound(
+                {"error": f"Operation with id {operation_id} not found."}
+            ) from exc
 
         # Создание записи OperationLog
         OperationLog.objects.create(
@@ -54,6 +57,7 @@ class RecordOperationView(APIView):
             {"message": "Operation successfully recorded."},
             status=status.HTTP_201_CREATED,
         )
+
 
 class CheckTelegramIdView(APIView):
     permission_classes = [AllowAny]  # Позволяет доступ без авторизации
@@ -83,13 +87,16 @@ class RegisterNewUserView(APIView):
             )
 
         # Создание нового пользователя
-        Worker.objects.create(name=name, position_id=position_id, id_telegram=id_telegram)
+        Worker.objects.create(
+            name=name, position_id=position_id, id_telegram=id_telegram
+        )
 
         # Ответ пользователю
         return Response(
             {"message": "User successfully registered."},
             status=status.HTTP_201_CREATED,
         )
+
 
 class CheckAdminsRightsView(APIView):
     permission_classes = [AllowAny]  # Позволяет доступ без авторизации
@@ -100,9 +107,10 @@ class CheckAdminsRightsView(APIView):
             return Response({"admins_rights": worker.position.admins_rights})
 
         except Worker.DoesNotExist:
-            return Response({'error': 'Worker not found'}, status=404)
+            return Response({"error": "Worker not found"}, status=404)
         except Position.DoesNotExist:
-            return Response({'error': 'Position not found'}, status=404)
+            return Response({"error": "Position not found"}, status=404)
+
 
 class Positions(APIView):
     permission_classes = [AllowAny]  # Позволяет доступ без авторизации
@@ -110,5 +118,64 @@ class Positions(APIView):
     def get(self, request):
         positions = Position.objects.all()
         return Response(
-            {"positions": [{"id": position.id, "name": position.name} for position in positions]}
+            {
+                "positions": [
+                    {"id": position.id, "name": position.name} for position in positions
+                ]
+            }
         )
+
+
+class StatusWindowView(APIView):
+    permission_classes = [AllowAny]  # Позволяет доступ без авторизации
+
+    def get(self, request, id_telegram):
+        try:
+            worker = Worker.objects.get(id_telegram=id_telegram)
+            user_status = {
+                "worker": worker.name,
+                "position": worker.position.name,
+                "salary": worker.salary,
+            }
+            
+            print(user_status)
+            return Response({"user_status": user_status})
+
+        except Worker.DoesNotExist:
+            return Response({"error": "Worker not found"}, status=404)
+
+
+class WorksDoneTodey(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request, id_telegram):
+        try:
+            worker = Worker.objects.get(id_telegram=id_telegram)
+            works_done = OperationLog.objects.filter(
+                worker=worker, date__date=now().date()
+            )
+            print(
+                {
+                    "works_done": [
+                        {
+                            "operation": work_done.operation.name,
+                            "quantity": work_done.quantity,
+                        }
+                        for work_done in works_done
+                    ]
+                }
+            )
+            return Response(
+                {
+                    "works_done": [
+                        {
+                            "operation": work_done.operation.name,
+                            "quantity": work_done.quantity,
+                        }
+                        for work_done in works_done
+                    ]
+                }
+            )
+
+        except Worker.DoesNotExist:
+            return Response({"error": "Worker not found"}, status=404)

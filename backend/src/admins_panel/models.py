@@ -1,4 +1,3 @@
-from decimal import Decimal
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -7,7 +6,7 @@ from django.utils.timezone import now
 
 class Operation(models.Model):
     name = models.CharField("Операции", max_length=50)
-    price = models.DecimalField("Цена операции", max_digits=10, decimal_places=2)
+    price = models.FloatField("Цена операции")
 
     class Meta:
         verbose_name = "Операция"
@@ -33,7 +32,7 @@ class Worker(models.Model):
     name = models.CharField("Работник", max_length=50)
     position = models.ForeignKey(Position, on_delete=models.CASCADE, null=True)
     id_telegram = models.IntegerField("ID телеграм", unique=True, null=True)
-    salary = models.DecimalField("зарплата", max_digits=10, decimal_places=2, default=0)
+    salary = models.FloatField("зарплата", default=0)
 
     class Meta:
         verbose_name = "Работник"
@@ -43,11 +42,11 @@ class Worker(models.Model):
         return self.name
 
     def add_salary(self, amount):
-        self.salary += Decimal(amount)
+        self.salary += amount
         self.save()
 
     def deduct_salary(self, amount):
-        self.salary -= Decimal(amount)
+        self.salary -= amount
         self.save()
 
 class OperationLog(models.Model):
@@ -73,7 +72,7 @@ def update_worker_salary(sender, instance, created, **kwargs):
 
 class Goods(models.Model):
     name = models.CharField("Товар", max_length=50)
-    price = models.DecimalField("Цена товара", max_digits=10, decimal_places=2)
+    price = models.FloatField("Цена товара")
     quantity = models.IntegerField("Количество товара")
 
     class Meta:
