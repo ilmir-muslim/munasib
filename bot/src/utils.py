@@ -84,9 +84,20 @@ async def works_done_today(user_id: int) -> str:
 
                 # Форматирование операций
                 formatted_operations = "\n".join(
-                    f"Operation: {op['operation']}, Quantity: {op['quantity']}"
+                    f"Operation{op['operation']}: {op['quantity']}"
                     for op in operations
                 )
 
                 return formatted_operations  # Возвращаем текст
             return "No works done today."
+         
+
+async def get_operation_list():
+    async with aiohttp.ClientSession() as session:
+        async with session.get("http://127.0.0.1:8000/worker_api/operations/") as response:
+            if response.status == 200:
+                data = await response.json()
+                return [{"id": op["id"], "name": op["name"]} for op in data.get("operations", [])]
+            return []
+
+

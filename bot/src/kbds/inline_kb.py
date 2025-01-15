@@ -1,6 +1,6 @@
 from aiogram import types
 
-from src.utils import check_worker_status, get_positions
+from src.utils import get_operation_list, get_positions
 
 
 async def position_keyboard():
@@ -16,5 +16,13 @@ async def position_keyboard():
 async def start_work_button():
     button = [
         [types.InlineKeyboardButton(text="Start Work", callback_data="start_work")]
+    ]
+    return types.InlineKeyboardMarkup(inline_keyboard=button)
+
+
+async def change_operation():
+    operations = await get_operation_list()
+    button = [
+        [types.InlineKeyboardButton(text=operation['name'], callback_data=operation['id'])] for operation in operations
     ]
     return types.InlineKeyboardMarkup(inline_keyboard=button)

@@ -5,7 +5,7 @@ from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 
-from src.inline_kb import position_keyboard, start_work_button
+from src.kbds.inline_kb import position_keyboard, start_work_button
 from src.utils import (
     check_admins_rights,
     check_user_exists,
@@ -83,6 +83,7 @@ async def position_received(callback_query: types.CallbackQuery, state: FSMConte
         await state.clear()
 
 
+
 async def status_window(callback_query: types.CallbackQuery):
     """Обработчик получения статуса."""
     user_id = callback_query.from_user.id
@@ -103,6 +104,7 @@ async def status_window(callback_query: types.CallbackQuery):
             print(f"Error during status window: {e}")
             break
         await asyncio.sleep(10)
+    
 
 
 def register_handlers(dp: Dispatcher):

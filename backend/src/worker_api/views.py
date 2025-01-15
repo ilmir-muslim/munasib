@@ -179,3 +179,16 @@ class WorksDoneTodey(APIView):
 
         except Worker.DoesNotExist:
             return Response({"error": "Worker not found"}, status=404)
+
+class OperationList(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        operations = Operation.objects.all()
+        return Response(
+            {
+                "operations": [
+                    {"id": operation.id, "name": operation.name} for operation in operations
+                ]
+            }
+        )
