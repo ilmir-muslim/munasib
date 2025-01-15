@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import CheckAdminsRightsView, CheckTelegramIdView, Positions, RecordOperationView, RegisterNewUserView, StatusWindowView, WorksDoneTodey
+from .views import CheckAdminsRightsView, CheckTelegramIdView, OperationList, Positions, RecordOperationView, RegisterNewUserView, StatusWindowView, WorksDoneTodey
 
 
 urlpatterns = [
@@ -18,4 +18,5 @@ urlpatterns = [
     path("positions/", Positions.as_view(), name="positions"),
     path("status_window/<int:id_telegram>/", StatusWindowView.as_view(), name="status_window"),
     path("works_done_today/<int:id_telegram>/", WorksDoneTodey.as_view(), name="works_done_today"),
+    path('operations/', OperationList.as_view(), name='operations'),
 ]

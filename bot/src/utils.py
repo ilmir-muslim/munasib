@@ -97,7 +97,6 @@ async def get_operation_list():
         async with session.get("http://127.0.0.1:8000/worker_api/operations/") as response:
             if response.status == 200:
                 data = await response.json()
+                # print([{"id": op["id"], "name": op["name"]} for op in data.get("operations", [])])
                 return [{"id": op["id"], "name": op["name"]} for op in data.get("operations", [])]
             return []
-
-

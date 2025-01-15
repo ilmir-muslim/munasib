@@ -1,15 +1,22 @@
-import sys
-import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-import os
-import logging
 import asyncio
-from dotenv import load_dotenv, find_dotenv
+import logging
+import os
+import sys
+
 from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.memory import MemoryStorage
+from dotenv import find_dotenv, load_dotenv
 
-from src.handlers import register_handlers
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
+from src.handlers.start_handler import register_start
+from src.handlers.status_window import register_status
+
+
+
+
+
+
 
 # Загрузка переменных окружения
 load_dotenv(find_dotenv())
@@ -29,7 +36,9 @@ storage = MemoryStorage()
 dp = Dispatcher(storage=storage)
 
 # Регистрация обработчиков
-register_handlers(dp)
+register_start(dp)
+register_status(dp)
+
 
 async def main():
     """Главная функция запуска бота."""
@@ -37,6 +46,7 @@ async def main():
         drop_pending_updates=True
     )  # Удаление вебхуков и очистка очереди
     await dp.start_polling(bot)
+
 
 if __name__ == "__main__":
     asyncio.run(main())

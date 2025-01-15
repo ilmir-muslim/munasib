@@ -1,5 +1,3 @@
-import asyncio
-from traceback import print_tb
 from aiogram import Dispatcher, types
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
@@ -9,9 +7,7 @@ from src.kbds.inline_kb import position_keyboard, start_work_button
 from src.utils import (
     check_admins_rights,
     check_user_exists,
-    check_worker_status,
     register_user,
-    works_done_today,
 )
 
 
@@ -83,33 +79,12 @@ async def position_received(callback_query: types.CallbackQuery, state: FSMConte
         await state.clear()
 
 
-
-async def status_window(callback_query: types.CallbackQuery):
-    """Обработчик получения статуса."""
-    user_id = callback_query.from_user.id
-    message_old = ''
-
-    while True:
-        status = await check_worker_status(user_id)
-        works_done = await works_done_today(user_id)
-        final_output = f"Your status:\n{status}\n\nOperations:\n{works_done}"
-        if message_old == final_output:
-            await asyncio.sleep(10)
-            continue
-        print(final_output)
-        try:
-            await callback_query.message.edit_text(text=final_output)
-            message_old = final_output
-        except Exception as e:
-            print(f"Error during status window: {e}")
-            break
-        await asyncio.sleep(10)
     
 
 
-def register_handlers(dp: Dispatcher):
+def register_start(dp: Dispatcher):
     dp.message.register(cmd_start, Command("start"))
     dp.message.register(password_received, RegisterStates.waiting_for_password)
     dp.message.register(name_received, RegisterStates.waiting_for_name)
     dp.callback_query.register(position_received, RegisterStates.waiting_for_position)
-    dp.callback_query.register(status_window, lambda c: c.data == "start_work")
+    

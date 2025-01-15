@@ -1,4 +1,4 @@
-from aiogram import types
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 from src.utils import get_operation_list, get_positions
 
@@ -7,22 +7,53 @@ async def position_keyboard():
     """Создание динамической клавиатуры для выбора места работы."""
     positions = await get_positions()
     buttons = [
-        [types.InlineKeyboardButton(text=pos["name"], callback_data=f"position_{pos['id']}")]
+        [
+            InlineKeyboardButton(
+                text=pos["name"], callback_data=f"position_{pos['id']}"
+            )
+        ]
         for pos in positions
     ]
-    return types.InlineKeyboardMarkup(inline_keyboard=buttons)
+    return InlineKeyboardMarkup(inline_keyboard=buttons)
 
 
 async def start_work_button():
     button = [
-        [types.InlineKeyboardButton(text="Start Work", callback_data="start_work")]
+        [InlineKeyboardButton(text="Start Work", callback_data="start_work")]
     ]
-    return types.InlineKeyboardMarkup(inline_keyboard=button)
+    return InlineKeyboardMarkup(inline_keyboard=button)
+
+
+async def main_menu():
+    """Генерация клавиатуры первого уровня меню."""
+    # Создаём список кнопок
+    buttons = [
+        InlineKeyboardButton(text="Сменить операцию", callback_data="change_operation"),
+        InlineKeyboardButton(text="Получить зарплату", callback_data="get_salary"),
+        InlineKeyboardButton(text="Внести количество", callback_data="add_quantity"),
+        InlineKeyboardButton(text="Назад", callback_data="go_back"),
+        InlineKeyboardButton(text="Завершение работы", callback_data="end_work"),
+    ]
+    
+    # Создаём клавиатуру с row_width=3
+    keyboard = InlineKeyboardMarkup(
+        inline_keyboard=[
+            buttons[i:i + 3] for i in range(0, len(buttons), 3)
+        ]
+    )
+    return keyboard
+
+
 
 
 async def change_operation():
     operations = await get_operation_list()
     button = [
-        [types.InlineKeyboardButton(text=operation['name'], callback_data=operation['id'])] for operation in operations
+        [
+            InlineKeyboardButton(
+                text=operation["name"], callback_data=str(operation["id"])
+            )
+        ]
+        for operation in operations
     ]
-    return types.InlineKeyboardMarkup(inline_keyboard=button)
+    return InlineKeyboardMarkup(inline_keyboard=button)
