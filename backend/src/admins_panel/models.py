@@ -34,6 +34,10 @@ class Worker(models.Model):
     id_telegram = models.IntegerField("ID телеграм", unique=True, null=True)
     salary = models.FloatField("зарплата", default=0)
 
+    @staticmethod
+    def get_deleted_worker():
+        return Worker.objects.get_or_create(name="Удаленный работник", defaults={"salary": 0})[0]
+
     class Meta:
         verbose_name = "Работник"
         verbose_name_plural = "Работники"
@@ -50,7 +54,7 @@ class Worker(models.Model):
         self.save()
 
 class OperationLog(models.Model):
-    worker = models.ForeignKey(Worker, on_delete=models.CASCADE)
+    worker = models.ForeignKey(Worker, on_delete=models.SET_DEFAULT, default=Worker.get_deleted_worker)
     operation = models.ForeignKey(Operation, on_delete=models.CASCADE)
     date = models.DateTimeField("Дата выполнения работ", default=now)
     quantity = models.IntegerField("Количество выполненных работ")

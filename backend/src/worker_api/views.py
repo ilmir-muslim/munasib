@@ -1,3 +1,5 @@
+import logging
+
 from django.utils.timezone import now
 from rest_framework import status
 from rest_framework.exceptions import NotFound
@@ -7,6 +9,7 @@ from rest_framework.views import APIView
 
 from admins_panel.models import Operation, OperationLog, Position, Worker
 
+logger = logging.getLogger("custom_logger")
 
 class RecordOperationView(APIView):
     permission_classes = [AllowAny]  # Позволяет доступ без авторизации
@@ -116,7 +119,10 @@ class Positions(APIView):
     permission_classes = [AllowAny]  # Позволяет доступ без авторизации
 
     def get(self, request):
+        logger.info("Fetching positions from database")
+
         positions = Position.objects.all()
+        logger.debug(f"Found {positions.count()} positions")
         return Response(
             {
                 "positions": [
@@ -133,9 +139,9 @@ class StatusWindowView(APIView):
         try:
             worker = Worker.objects.get(id_telegram=id_telegram)
             user_status = {
-                "worker": worker.name,
-                "position": worker.position.name,
-                "salary": worker.salary,
+                "Работник": worker.name,
+                "должность": worker.position.name,
+                "зарплата": worker.salary,
             }
             
             print(user_status)
@@ -145,7 +151,7 @@ class StatusWindowView(APIView):
             return Response({"error": "Worker not found"}, status=404)
 
 
-class WorksDoneTodey(APIView):
+class WorksDoneToday(APIView):
     permission_classes = [AllowAny]
 
     def get(self, request, id_telegram):

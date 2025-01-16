@@ -5,45 +5,34 @@ from src.kbds.inline_kb import change_operation, main_menu
 from src.utils import check_worker_status, works_done_today
 
 
-async def status_window(callback_query: types.CallbackQuery):
-    """Обработчик получения статуса."""
-    user_id = callback_query.from_user.id
-    message_old = ""
-
-    while True:
-        # Получаем статус пользователя и выполненные операции
+async def update_status(callback_query: types.CallbackQuery):
+    """Обновляет окно статуса для пользователя."""
+    try:
+        user_id = callback_query.from_user.id  # Извлекаем user_id из callback_query
         status = await check_worker_status(user_id)
         works_done = await works_done_today(user_id)
 
-        # Формируем отформатированное сообщение
         final_output = (
-            "<b>🔍 Your Current Status:</b>\n"
+            "<b>🔍 Твой текущий статус:</b>\n"
             f"<b><i>{status}</i></b>\n\n"
-            "<b>📋 Operations Completed Today:</b>\n"
+            "<b>📋 Сделано операций за сегодня:</b>\n"
             f"<b>{works_done}</b>"
         )
 
-        # Проверяем изменения в тексте
-        if message_old == final_output:
-            await asyncio.sleep(10)
-            continue
-        print(final_output)
+        keyboard = await main_menu()
+        await callback_query.message.edit_text(text=final_output, reply_markup=keyboard, parse_mode="HTML")
+    except Exception as e:
+        print(f"Error updating status: {e}")
 
+async def status_window(callback_query: types.CallbackQuery):
+    """Обработчик получения статуса."""
+    while True:
         try:
-            # Получаем клавиатуру
-            keyboard = await main_menu()
-
-            # Отправляем сообщение
-            await callback_query.message.answer(
-                text=final_output, reply_markup=keyboard, parse_mode="HTML"
-            )
-            message_old = final_output
+            await update_status(callback_query)
+            await asyncio.sleep(600)
         except Exception as e:
             print(f"Error during status window: {e}")
             break
-        await asyncio.sleep(10)
-
-
 
 
 async def handle_change_operation(callback_query: types.CallbackQuery):
@@ -53,10 +42,16 @@ async def handle_change_operation(callback_query: types.CallbackQuery):
 
 async def handle_go_back(callback_query: types.CallbackQuery):
     """Возврат к окну статуса."""
-    await status_window(callback_query)
+    keyboard = await main_menu()
+    await callback_query.message.edit_reply_markup(reply_markup=keyboard)
+
+async def end_work(callback_query: types.CallbackQuery):
+    """Обработчик завершения работы."""
+
+    await callback_query.message.answer("Работа завершена. До свидания!")
 
 
 def register_status(dp: Dispatcher):
     dp.callback_query.register(status_window, lambda c: c.data == "start_work")
     dp.callback_query.register(handle_change_operation, lambda c: c.data == "change_operation")
-    dp.callback_query.register(lambda c: c.data == "go_back")
+    dp.callback_query.register(handle_go_back, lambda c: c.data == "go_back")
