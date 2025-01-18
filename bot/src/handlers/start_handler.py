@@ -3,12 +3,9 @@ from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 
+from src.api_client import check_admins_rights, check_user_exists, register_user
 from src.kbds.inline_kb import position_keyboard, start_work_button
-from src.utils import (
-    check_admins_rights,
-    check_user_exists,
-    register_user,
-)
+
 
 
 class RegisterStates(StatesGroup):

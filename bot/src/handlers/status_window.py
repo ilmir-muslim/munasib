@@ -1,8 +1,9 @@
 import asyncio
 from aiogram import Dispatcher, types
 
+from src.api_client import check_worker_status, works_done_today
 from src.kbds.inline_kb import change_operation, main_menu
-from src.utils import check_worker_status, works_done_today
+
 
 
 async def update_status(callback_query: types.CallbackQuery):

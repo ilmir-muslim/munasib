@@ -1,6 +1,8 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from src.utils import get_operation_list, get_positions
+from src.api_client import get_operation_list, get_positions
+
+
 
 
 async def position_keyboard():

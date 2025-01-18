@@ -126,7 +126,7 @@ class Positions(APIView):
         return Response(
             {
                 "positions": [
-                    {"id": position.id, "name": position.name} for position in positions
+                    {"id": position.id, "name": position.name, "default_operation": position.default_operation} for position in positions
                 ]
             }
         )
@@ -194,7 +194,7 @@ class OperationList(APIView):
         return Response(
             {
                 "operations": [
-                    {"id": operation.id, "name": operation.name} for operation in operations
+                    {"id": operation.id, "name": operation.name, "price": operation.price} for operation in operations
                 ]
             }
         )

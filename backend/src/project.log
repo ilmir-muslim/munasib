@@ -231,3 +231,13 @@ INFO 2025-01-16 06:33:56,199 basehttp "GET /worker_api/works_done_today/69037481
 INFO 2025-01-16 06:33:58,415 basehttp "GET /worker_api/operations/ HTTP/1.1" 200 86
 INFO 2025-01-16 06:33:58,568 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
 INFO 2025-01-16 06:33:58,570 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-18 02:37:31,656 autoreload Watching for file changes with StatReloader
+INFO 2025-01-18 02:37:49,875 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-18 02:37:49,878 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-18 02:37:53,067 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-18 02:37:53,070 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-18 02:39:40,928 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-18 02:39:40,930 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-18 02:39:42,322 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-18 02:39:42,324 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-18 02:39:44,348 basehttp "GET /worker_api/operations/ HTTP/1.1" 200 110

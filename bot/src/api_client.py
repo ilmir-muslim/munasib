@@ -1,5 +1,7 @@
 import aiohttp
 
+from src.utils.cache_manager import CacheManager
+
 
 async def check_user_exists(user_id: int) -> bool:
     async with aiohttp.ClientSession() as session:
@@ -28,12 +30,21 @@ async def register_user(name: str, position_id: int, id_telegram: int):
             return None
 
 async def get_positions() -> list:
+    cache_name = "positions_cache"
+    cached_data = CacheManager.read_cache(cache_name)
+    
+    if cached_data:
+        return cached_data
+
     async with aiohttp.ClientSession() as session:
         async with session.get("http://127.0.0.1:8000/worker_api/positions/") as response:
             if response.status == 200:
                 data = await response.json()
-                return [{"id": pos["id"], "name": pos["name"]} for pos in data.get("positions", [])]
+                positions = [{"id": pos["id"], "name": pos["name"], "default_operation": pos["default_operation"]} for pos in data.get("positions", [])]
+                CacheManager.write_cache(cache_name, positions)  # Сохранение в кэш
+                return positions
             return []
+
 
 async def check_admins_rights(user_id: int) -> bool:
     async with aiohttp.ClientSession() as session:
@@ -93,9 +104,18 @@ async def works_done_today(user_id: int) -> str:
          
 
 async def get_operation_list():
+    cache_name = "operations_cache"
+    cached_data = CacheManager.read_cache(cache_name)
+    
+    if cached_data:
+        return cached_data
+
     async with aiohttp.ClientSession() as session:
         async with session.get("http://127.0.0.1:8000/worker_api/operations/") as response:
             if response.status == 200:
                 data = await response.json()
-                return [{"id": op["id"], "name": op["name"]} for op in data.get("operations", [])]
+                operations = [{"id": op["id"], "name": op["name"], "price": op["price"]} for op in data.get("operations", [])]
+                CacheManager.write_cache(cache_name, operations)  # Сохранение в кэш
+                return operations
             return []
+
