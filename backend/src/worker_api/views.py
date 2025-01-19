@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from admins_panel.models import Operation, OperationLog, Position, Worker
+from worker_api.serializers import PositionSerializer
 
 logger = logging.getLogger("custom_logger")
 
@@ -121,15 +122,10 @@ class Positions(APIView):
     def get(self, request):
         logger.info("Fetching positions from database")
 
-        positions = Position.objects.all()
+        positions = Position.objects.select_related ('default_operation').all()
+        serializer = PositionSerializer(positions, many=True)
         logger.debug(f"Found {positions.count()} positions")
-        return Response(
-            {
-                "positions": [
-                    {"id": position.id, "name": position.name, "default_operation": position.default_operation} for position in positions
-                ]
-            }
-        )
+        return Response({"positions": serializer.data})
 
 
 class StatusWindowView(APIView):

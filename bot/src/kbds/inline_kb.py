@@ -51,3 +51,4 @@ async def change_operation():
 
     keyboard = InlineKeyboardMarkup(inline_keyboard=inline_keyboard)
     return keyboard
+

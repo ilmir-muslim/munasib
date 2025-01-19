@@ -18,7 +18,9 @@ class Operation(models.Model):
 
 class Position(models.Model):
     name = models.CharField("Должность", max_length=50)
-    default_operation = models.ForeignKey(Operation, on_delete=models.CASCADE)
+    default_operation = models.ForeignKey(
+        Operation, on_delete=models.SET_NULL, null=True, blank=True
+    )
     admins_rights = models.BooleanField("Права админа", default=False)
 
     class Meta:

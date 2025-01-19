@@ -1,0 +1,15 @@
+{
+  "timestamp": "2025-01-19T16:55:53.229604",
+  "data": [
+    {
+      "id": 1,
+      "name": "разработчик",
+      "default_operation": 2
+    },
+    {
+      "id": 2,
+      "name": "зигзаг",
+      "default_operation": 1
+    }
+  ]
+}

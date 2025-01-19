@@ -241,3 +241,536 @@ INFO 2025-01-18 02:39:40,930 basehttp "GET /worker_api/check_admins_rights/69037
 INFO 2025-01-18 02:39:42,322 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
 INFO 2025-01-18 02:39:42,324 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
 INFO 2025-01-18 02:39:44,348 basehttp "GET /worker_api/operations/ HTTP/1.1" 200 110
+INFO 2025-01-18 19:42:26,501 autoreload Watching for file changes with StatReloader
+INFO 2025-01-18 19:42:51,588 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-18 19:42:51,605 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-18 19:42:53,655 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-18 19:42:53,669 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-18 19:53:35,710 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-18 19:53:35,712 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-18 19:54:30,214 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-18 19:54:30,216 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-18 19:58:20,473 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-18 19:58:20,476 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-18 21:24:21,918 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-18 21:24:21,921 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-18 21:24:25,512 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-18 21:24:25,514 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-18 21:28:24,767 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-18 21:28:24,769 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-18 21:43:12,411 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-18 21:43:12,413 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-18 21:43:14,219 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-18 21:43:14,221 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-18 21:44:08,853 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-18 21:44:08,855 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-18 22:07:35,365 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-18 22:07:35,367 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-18 22:13:29,224 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-18 22:13:29,226 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-18 22:17:08,625 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-18 22:17:08,628 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-18 22:17:34,154 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-18 22:17:34,158 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-18 22:17:50,397 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-18 22:17:50,400 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-18 22:41:44,993 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-18 22:41:44,996 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-18 22:44:22,236 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-18 22:44:22,238 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-18 22:44:42,554 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-18 22:44:42,559 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-18 22:44:45,075 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-18 22:44:45,080 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-18 23:12:58,526 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-18 23:12:58,559 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-18 23:13:01,478 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-18 23:13:01,481 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-18 23:13:01,538 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-18 23:13:01,599 views Fetching positions from database
+ERROR 2025-01-18 23:13:02,624 log Internal Server Error: /worker_api/positions/
+Traceback (most recent call last):
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/response.py", line 74, in rendered_content
+    ret = renderer.render(self.data, accepted_media_type, context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/renderers.py", line 100, in render
+    ret = json.dumps(
+          ^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/utils/json.py", line 25, in dumps
+    return json.dumps(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/__init__.py", line 238, in dumps
+    **kw).encode(obj)
+          ^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/encoder.py", line 258, in iterencode
+    return _iterencode(o, 0)
+           ^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/utils/encoders.py", line 67, in default
+    return super().default(obj)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type Operation is not JSON serializable
+ERROR 2025-01-18 23:13:02,640 basehttp "GET /worker_api/positions/ HTTP/1.1" 500 112044
+INFO 2025-01-18 23:17:50,453 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-18 23:17:50,456 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-18 23:17:52,485 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-18 23:17:52,521 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-18 23:17:52,523 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-18 23:17:52,524 views Fetching positions from database
+ERROR 2025-01-18 23:17:52,558 log Internal Server Error: /worker_api/positions/
+Traceback (most recent call last):
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/response.py", line 74, in rendered_content
+    ret = renderer.render(self.data, accepted_media_type, context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/renderers.py", line 100, in render
+    ret = json.dumps(
+          ^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/utils/json.py", line 25, in dumps
+    return json.dumps(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/__init__.py", line 238, in dumps
+    **kw).encode(obj)
+          ^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/encoder.py", line 258, in iterencode
+    return _iterencode(o, 0)
+           ^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/utils/encoders.py", line 67, in default
+    return super().default(obj)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type Operation is not JSON serializable
+ERROR 2025-01-18 23:17:52,559 basehttp "GET /worker_api/positions/ HTTP/1.1" 500 112044
+INFO 2025-01-18 23:17:52,559 basehttp - Broken pipe from ('127.0.0.1', 32890)
+INFO 2025-01-18 23:27:52,745 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-18 23:27:52,855 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-18 23:27:52,858 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-18 23:27:52,859 views Fetching positions from database
+ERROR 2025-01-18 23:27:52,878 log Internal Server Error: /worker_api/positions/
+Traceback (most recent call last):
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/response.py", line 74, in rendered_content
+    ret = renderer.render(self.data, accepted_media_type, context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/renderers.py", line 100, in render
+    ret = json.dumps(
+          ^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/utils/json.py", line 25, in dumps
+    return json.dumps(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/__init__.py", line 238, in dumps
+    **kw).encode(obj)
+          ^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/encoder.py", line 258, in iterencode
+    return _iterencode(o, 0)
+           ^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/utils/encoders.py", line 67, in default
+    return super().default(obj)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type Operation is not JSON serializable
+ERROR 2025-01-18 23:27:52,879 basehttp "GET /worker_api/positions/ HTTP/1.1" 500 112044
+INFO 2025-01-18 23:27:52,879 basehttp - Broken pipe from ('127.0.0.1', 59998)
+INFO 2025-01-18 23:36:49,543 autoreload /home/ilmir/dev_vscode/munasib/backend/src/worker_api/views.py changed, reloading.
+INFO 2025-01-18 23:37:20,728 autoreload Watching for file changes with StatReloader
+INFO 2025-01-18 23:37:23,398 autoreload /home/ilmir/dev_vscode/munasib/backend/src/worker_api/views.py changed, reloading.
+INFO 2025-01-18 23:37:23,648 autoreload Watching for file changes with StatReloader
+INFO 2025-01-18 23:38:37,148 autoreload Watching for file changes with StatReloader
+INFO 2025-01-18 23:38:57,616 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-18 23:38:57,619 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-18 23:38:59,795 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-18 23:38:59,797 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-18 23:38:59,799 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-18 23:38:59,800 views Fetching positions from database
+ERROR 2025-01-18 23:38:59,818 log Internal Server Error: /worker_api/positions/
+Traceback (most recent call last):
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/response.py", line 74, in rendered_content
+    ret = renderer.render(self.data, accepted_media_type, context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/renderers.py", line 100, in render
+    ret = json.dumps(
+          ^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/utils/json.py", line 25, in dumps
+    return json.dumps(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/__init__.py", line 238, in dumps
+    **kw).encode(obj)
+          ^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/encoder.py", line 258, in iterencode
+    return _iterencode(o, 0)
+           ^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/utils/encoders.py", line 67, in default
+    return super().default(obj)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type Operation is not JSON serializable
+ERROR 2025-01-18 23:38:59,819 basehttp "GET /worker_api/positions/ HTTP/1.1" 500 112198
+INFO 2025-01-18 23:38:59,819 basehttp - Broken pipe from ('127.0.0.1', 42444)
+INFO 2025-01-18 23:40:34,188 autoreload /home/ilmir/dev_vscode/munasib/backend/src/worker_api/serializers.py changed, reloading.
+INFO 2025-01-18 23:40:34,480 autoreload Watching for file changes with StatReloader
+INFO 2025-01-18 23:43:06,567 autoreload /home/ilmir/dev_vscode/munasib/backend/src/worker_api/views.py changed, reloading.
+INFO 2025-01-18 23:43:06,827 autoreload Watching for file changes with StatReloader
+INFO 2025-01-18 23:43:50,287 autoreload Watching for file changes with StatReloader
+INFO 2025-01-18 23:44:10,078 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-18 23:44:10,080 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-18 23:44:12,344 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-18 23:44:12,347 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-18 23:44:12,349 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-18 23:44:12,349 views Fetching positions from database
+ERROR 2025-01-18 23:44:12,367 log Internal Server Error: /worker_api/positions/
+Traceback (most recent call last):
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/response.py", line 74, in rendered_content
+    ret = renderer.render(self.data, accepted_media_type, context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/renderers.py", line 100, in render
+    ret = json.dumps(
+          ^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/utils/json.py", line 25, in dumps
+    return json.dumps(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/__init__.py", line 238, in dumps
+    **kw).encode(obj)
+          ^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/encoder.py", line 258, in iterencode
+    return _iterencode(o, 0)
+           ^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/utils/encoders.py", line 67, in default
+    return super().default(obj)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type Operation is not JSON serializable
+ERROR 2025-01-18 23:44:12,368 basehttp "GET /worker_api/positions/ HTTP/1.1" 500 112198
+INFO 2025-01-18 23:44:12,368 basehttp - Broken pipe from ('127.0.0.1', 33072)
+INFO 2025-01-18 23:45:25,051 autoreload Watching for file changes with StatReloader
+INFO 2025-01-18 23:46:08,692 autoreload Watching for file changes with StatReloader
+INFO 2025-01-18 23:46:28,662 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-18 23:46:28,666 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-18 23:46:32,147 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-18 23:46:32,149 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-18 23:46:32,151 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-18 23:46:32,152 views Fetching positions from database
+ERROR 2025-01-18 23:46:32,170 log Internal Server Error: /worker_api/positions/
+Traceback (most recent call last):
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/response.py", line 74, in rendered_content
+    ret = renderer.render(self.data, accepted_media_type, context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/renderers.py", line 100, in render
+    ret = json.dumps(
+          ^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/utils/json.py", line 25, in dumps
+    return json.dumps(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/__init__.py", line 238, in dumps
+    **kw).encode(obj)
+          ^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/encoder.py", line 258, in iterencode
+    return _iterencode(o, 0)
+           ^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/utils/encoders.py", line 67, in default
+    return super().default(obj)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type Operation is not JSON serializable
+ERROR 2025-01-18 23:46:32,171 basehttp "GET /worker_api/positions/ HTTP/1.1" 500 112198
+INFO 2025-01-18 23:46:32,172 basehttp - Broken pipe from ('127.0.0.1', 59858)
+INFO 2025-01-18 23:54:24,841 autoreload Watching for file changes with StatReloader
+INFO 2025-01-18 23:54:40,088 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-18 23:54:40,091 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-18 23:54:46,144 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-18 23:54:46,146 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-18 23:54:46,148 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-18 23:54:46,149 views Fetching positions from database
+ERROR 2025-01-18 23:54:46,323 log Internal Server Error: /worker_api/positions/
+Traceback (most recent call last):
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/response.py", line 74, in rendered_content
+    ret = renderer.render(self.data, accepted_media_type, context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/renderers.py", line 100, in render
+    ret = json.dumps(
+          ^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/utils/json.py", line 25, in dumps
+    return json.dumps(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/__init__.py", line 238, in dumps
+    **kw).encode(obj)
+          ^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/encoder.py", line 258, in iterencode
+    return _iterencode(o, 0)
+           ^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/utils/encoders.py", line 67, in default
+    return super().default(obj)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type Operation is not JSON serializable
+ERROR 2025-01-18 23:54:46,324 basehttp "GET /worker_api/positions/ HTTP/1.1" 500 112198
+INFO 2025-01-18 23:54:46,325 basehttp - Broken pipe from ('127.0.0.1', 56980)
+INFO 2025-01-19 00:17:27,569 autoreload Watching for file changes with StatReloader
+INFO 2025-01-19 00:17:44,150 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-19 00:17:44,153 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-19 00:17:48,450 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 00:17:48,453 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-19 00:17:48,455 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 00:17:48,456 views Fetching positions from database
+ERROR 2025-01-19 00:17:48,474 log Internal Server Error: /worker_api/positions/
+Traceback (most recent call last):
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/response.py", line 74, in rendered_content
+    ret = renderer.render(self.data, accepted_media_type, context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/renderers.py", line 100, in render
+    ret = json.dumps(
+          ^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/utils/json.py", line 25, in dumps
+    return json.dumps(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/__init__.py", line 238, in dumps
+    **kw).encode(obj)
+          ^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/encoder.py", line 258, in iterencode
+    return _iterencode(o, 0)
+           ^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/utils/encoders.py", line 67, in default
+    return super().default(obj)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type Operation is not JSON serializable
+ERROR 2025-01-19 00:17:48,475 basehttp "GET /worker_api/positions/ HTTP/1.1" 500 112202
+INFO 2025-01-19 00:17:48,475 basehttp - Broken pipe from ('127.0.0.1', 35208)
+INFO 2025-01-19 00:28:31,181 autoreload Watching for file changes with StatReloader
+INFO 2025-01-19 00:28:48,413 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-19 00:28:48,415 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-19 00:28:55,553 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 00:28:55,556 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-19 00:28:55,559 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 00:28:55,560 views Fetching positions from database
+ERROR 2025-01-19 00:28:55,596 log Internal Server Error: /worker_api/positions/
+Traceback (most recent call last):
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/src/worker_api/views.py", line 125, in get
+    positions = Position.objects.select_relate ('default_operation').all()
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Manager' object has no attribute 'select_relate'. Did you mean: 'select_related'?
+ERROR 2025-01-19 00:28:55,599 basehttp "GET /worker_api/positions/ HTTP/1.1" 500 100460
+INFO 2025-01-19 00:28:55,599 basehttp - Broken pipe from ('127.0.0.1', 56774)
+INFO 2025-01-19 00:29:29,728 autoreload /home/ilmir/dev_vscode/munasib/backend/src/worker_api/views.py changed, reloading.
+INFO 2025-01-19 00:29:29,988 autoreload Watching for file changes with StatReloader
+INFO 2025-01-19 00:29:32,131 autoreload /home/ilmir/dev_vscode/munasib/backend/src/worker_api/views.py changed, reloading.
+INFO 2025-01-19 00:29:32,375 autoreload Watching for file changes with StatReloader
+INFO 2025-01-19 00:29:36,131 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-19 00:29:36,133 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-19 00:29:38,346 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 00:29:38,348 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-19 00:29:38,350 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 00:29:38,351 views Fetching positions from database
+INFO 2025-01-19 00:29:38,353 basehttp "GET /worker_api/positions/ HTTP/1.1" 200 221
+INFO 2025-01-19 14:48:55,072 autoreload Watching for file changes with StatReloader
+INFO 2025-01-19 14:49:25,779 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-19 14:49:25,804 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-19 14:49:29,337 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 14:49:29,357 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-19 14:49:29,360 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 14:49:29,439 basehttp "GET /worker_api/operations/ HTTP/1.1" 200 110
+INFO 2025-01-19 14:55:26,191 autoreload /home/ilmir/dev_vscode/munasib/backend/src/worker_api/serializers.py changed, reloading.
+INFO 2025-01-19 14:55:32,617 autoreload Watching for file changes with StatReloader
+INFO 2025-01-19 14:55:51,148 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-19 14:55:51,151 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-19 14:55:53,139 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 14:55:53,170 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-19 14:55:53,173 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 14:55:53,174 views Fetching positions from database
+INFO 2025-01-19 14:55:53,229 basehttp "GET /worker_api/positions/ HTTP/1.1" 200 131
+INFO 2025-01-19 15:00:15,635 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-19 15:00:15,735 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-19 15:00:17,929 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 15:00:17,934 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-19 15:00:17,941 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 15:08:22,958 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 15:08:22,986 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-19 15:08:22,988 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 15:11:11,276 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 15:11:11,278 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-19 15:11:11,281 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 15:20:52,885 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 15:20:52,887 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-19 15:20:52,889 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 16:21:27,975 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-19 16:21:27,977 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-19 16:21:30,014 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 16:21:30,016 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-19 16:21:30,018 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 16:30:47,207 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-19 16:30:47,209 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-19 16:30:49,695 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 16:30:49,696 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-19 16:30:49,698 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 18:35:17,879 autoreload Watching for file changes with StatReloader
+INFO 2025-01-19 18:36:17,591 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-19 18:36:17,594 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-19 18:36:19,655 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 18:36:19,658 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-19 18:36:19,660 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 18:42:35,490 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-19 18:42:35,493 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-19 18:42:37,354 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 18:42:37,356 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-19 18:42:37,358 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 19:04:14,705 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-19 19:04:14,707 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-19 19:04:16,732 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 19:04:16,735 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-19 19:04:16,737 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 19:04:28,448 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 19:04:28,450 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-19 19:12:03,000 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-19 19:12:03,002 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-19 19:12:04,695 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 19:12:04,697 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-19 19:12:04,699 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 19:16:18,383 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-19 19:16:18,385 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-19 19:16:20,535 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 19:16:20,537 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-19 19:16:20,539 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 19:16:26,399 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 19:16:26,401 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-19 19:24:47,302 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-19 19:24:47,304 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-19 19:24:55,319 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 19:24:55,321 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-19 19:24:55,324 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 19:25:02,128 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 19:25:02,130 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-19 19:25:14,923 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 19:25:14,925 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-19 19:37:01,986 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-19 19:37:01,988 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-19 19:37:04,659 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 19:37:04,661 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-19 19:37:04,662 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 19:37:09,013 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 19:37:09,015 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-19 19:37:16,159 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-19 19:37:16,161 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-19 19:37:16,162 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
