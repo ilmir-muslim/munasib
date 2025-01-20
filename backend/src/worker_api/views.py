@@ -17,12 +17,12 @@ class RecordOperationView(APIView):
 
     def post(self, request, *args, **kwargs):
         # Извлечение данных из запроса
-        worker_id = request.data.get("worker_id")
+        telegram_id = request.data.get("telegram_id")
         operation_id = request.data.get("operation_id")
         quantity = request.data.get("quantity")
 
         # Валидация входных данных
-        if not all([worker_id, operation_id, quantity]):
+        if not all([telegram_id, operation_id, quantity]):
             return Response(
                 {"error": "worker_id, operation_id, and quantity are required."},
                 status=status.HTTP_400_BAD_REQUEST,
@@ -40,9 +40,9 @@ class RecordOperationView(APIView):
 
         # Проверка существования работника и операции
         try:
-            worker = Worker.objects.get(id=worker_id)
+            worker = Worker.objects.get(telegram_id=telegram_id)
         except Worker.DoesNotExist as exc:
-            raise NotFound({"error": f"Worker with id {worker_id} not found."}) from exc
+            raise NotFound({"error": f"Worker with id {telegram_id} not found."}) from exc
 
         try:
             operation = Operation.objects.get(id=operation_id)
@@ -66,9 +66,9 @@ class RecordOperationView(APIView):
 class CheckTelegramIdView(APIView):
     permission_classes = [AllowAny]  # Позволяет доступ без авторизации
 
-    def get(self, request, id_telegram):
+    def get(self, request, telegram_id):
         try:
-            Worker.objects.get(id_telegram=id_telegram)
+            Worker.objects.get(telegram_id=telegram_id)
             return Response({"exists": True})
         except Worker.DoesNotExist:
             return Response({"exists": False})
@@ -81,18 +81,18 @@ class RegisterNewUserView(APIView):
         # Извлечение данных из запроса
         name = request.data.get("name")
         position_id = request.data.get("position_id")
-        id_telegram = request.data.get("id_telegram")
+        telegram_id = request.data.get("telegram_id")
 
         # Валидация входных данных
-        if not all([name, position_id, id_telegram]):
+        if not all([name, position_id, telegram_id]):
             return Response(
-                {"error": "name, position_id, and id_telegram are required."},
+                {"error": "name, position_id, and telegram_id are required."},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
         # Создание нового пользователя
         Worker.objects.create(
-            name=name, position_id=position_id, id_telegram=id_telegram
+            name=name, position_id=position_id, telegram_id=telegram_id
         )
 
         # Ответ пользователю
@@ -105,9 +105,9 @@ class RegisterNewUserView(APIView):
 class CheckAdminsRightsView(APIView):
     permission_classes = [AllowAny]  # Позволяет доступ без авторизации
 
-    def get(self, request, id_telegram):
+    def get(self, request, telegram_id):
         try:
-            worker = Worker.objects.get(id_telegram=id_telegram)
+            worker = Worker.objects.get(telegram_id=telegram_id)
             return Response({"admins_rights": worker.position.admins_rights})
 
         except Worker.DoesNotExist:
@@ -131,9 +131,9 @@ class Positions(APIView):
 class StatusWindowView(APIView):
     permission_classes = [AllowAny]  # Позволяет доступ без авторизации
 
-    def get(self, request, id_telegram):
+    def get(self, request, telegram_id):
         try:
-            worker = Worker.objects.get(id_telegram=id_telegram)
+            worker = Worker.objects.get(telegram_id=telegram_id)
             user_status = {
                 "Работник": worker.name,
                 "должность": worker.position.name,
@@ -150,9 +150,9 @@ class StatusWindowView(APIView):
 class WorksDoneToday(APIView):
     permission_classes = [AllowAny]
 
-    def get(self, request, id_telegram):
+    def get(self, request, telegram_id):
         try:
-            worker = Worker.objects.get(id_telegram=id_telegram)
+            worker = Worker.objects.get(telegram_id=telegram_id)
             works_done = OperationLog.objects.filter(
                 worker=worker, date__date=now().date()
             )

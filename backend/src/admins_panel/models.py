@@ -33,7 +33,8 @@ class Position(models.Model):
 class Worker(models.Model):
     name = models.CharField("Работник", max_length=50)
     position = models.ForeignKey(Position, on_delete=models.CASCADE, null=True)
-    id_telegram = models.IntegerField("ID телеграм", unique=True, null=True)
+    telegram_id = models.IntegerField("ID телеграм", unique=True, null=True)
+    have_telegram = models.BooleanField("Есть телеграм", default=True)
     salary = models.FloatField("зарплата", default=0)
 
     @staticmethod

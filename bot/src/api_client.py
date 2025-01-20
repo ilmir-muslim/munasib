@@ -13,12 +13,12 @@ async def check_user_exists(user_id: int) -> bool:
                 return data.get('exists', False)
             return False
 
-async def register_user(name: str, position_id: int, id_telegram: int):
+async def register_user(name: str, position_id: int, telegram_id: int):
     async with aiohttp.ClientSession() as session:
         payload = {
             'name': name,
             'position_id': position_id,
-            'id_telegram': id_telegram
+            'telegram_id': telegram_id
         }
         print(payload)
         async with session.post(
@@ -151,3 +151,18 @@ async def get_default_operation(user_id: int) -> dict | None:
     operation = next((op for op in operations if op["id"] == default_operation_id), None)
     print(f"Default operation: {operation}") # Отладочное сообщение
     return operation
+
+
+async def record_operation(telegram_id: int, operation_id: int, quantity: int) -> dict:
+    """Отправка данных о выполненной операции."""
+    async with aiohttp.ClientSession() as session:
+        payload = {
+            "telegram_id": telegram_id,
+            "operation_id": operation_id,
+            "quantity": quantity,
+        }
+        async with session.post("http://127.0.0.1:8000/worker_api/record_operation/", json=payload) as response:
+            if response.status == 201:
+                return {"success": True, "message": "Operation successfully recorded."}
+            error_message = await response.json()
+            return {"success": False, "error": error_message.get("error")}

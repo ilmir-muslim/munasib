@@ -774,3 +774,421 @@ INFO 2025-01-19 19:37:09,015 basehttp "GET /worker_api/works_done_today/69037481
 INFO 2025-01-19 19:37:16,159 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
 INFO 2025-01-19 19:37:16,161 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
 INFO 2025-01-19 19:37:16,162 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-20 04:14:56,890 autoreload Watching for file changes with StatReloader
+ERROR 2025-01-20 04:15:18,247 log Internal Server Error: /worker_api/status_window/6903748145/
+Traceback (most recent call last):
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/src/worker_api/views.py", line 136, in get
+    worker = Worker.objects.get(id_telegram=id_telegram)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/db/models/query.py", line 635, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/db/models/query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/db/models/query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/db/models/query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1491, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1303, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1768, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'id_telegram' into field. Choices are: have_telegram, id, name, operationlog, position, position_id, salary, telegram_id
+ERROR 2025-01-20 04:15:18,249 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 500 151402
+INFO 2025-01-20 04:15:18,249 basehttp - Broken pipe from ('127.0.0.1', 50898)
+ERROR 2025-01-20 04:15:18,277 log Internal Server Error: /worker_api/works_done_today/6903748145/
+Traceback (most recent call last):
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/src/worker_api/views.py", line 155, in get
+    worker = Worker.objects.get(id_telegram=id_telegram)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/db/models/query.py", line 635, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/db/models/query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/db/models/query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/db/models/query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1491, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1303, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1768, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'id_telegram' into field. Choices are: have_telegram, id, name, operationlog, position, position_id, salary, telegram_id
+ERROR 2025-01-20 04:15:18,279 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 500 151318
+INFO 2025-01-20 04:15:18,279 basehttp - Broken pipe from ('127.0.0.1', 50910)
+ERROR 2025-01-20 04:15:18,303 log Internal Server Error: /worker_api/status_window/6903748145/
+Traceback (most recent call last):
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/src/worker_api/views.py", line 136, in get
+    worker = Worker.objects.get(id_telegram=id_telegram)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/db/models/query.py", line 635, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/db/models/query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/db/models/query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/db/models/query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1491, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1303, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ilmir/dev_vscode/munasib/backend/.venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1768, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'id_telegram' into field. Choices are: have_telegram, id, name, operationlog, position, position_id, salary, telegram_id
+ERROR 2025-01-20 04:15:18,304 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 500 151402
+INFO 2025-01-20 04:15:18,304 basehttp - Broken pipe from ('127.0.0.1', 50924)
+INFO 2025-01-20 04:20:06,925 autoreload Watching for file changes with StatReloader
+INFO 2025-01-20 04:20:23,763 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-20 04:20:23,782 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-20 04:20:25,715 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-20 04:20:25,735 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-20 04:20:25,738 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-20 04:20:36,951 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-20 04:20:36,954 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-20 04:21:24,494 autoreload /home/ilmir/dev_vscode/munasib/backend/src/worker_api/urls.py changed, reloading.
+INFO 2025-01-20 04:21:24,725 autoreload Watching for file changes with StatReloader
+INFO 2025-01-20 04:21:35,894 autoreload /home/ilmir/dev_vscode/munasib/backend/src/worker_api/urls.py changed, reloading.
+INFO 2025-01-20 04:21:36,120 autoreload Watching for file changes with StatReloader
+INFO 2025-01-20 04:21:38,247 autoreload /home/ilmir/dev_vscode/munasib/backend/src/worker_api/urls.py changed, reloading.
+INFO 2025-01-20 04:21:38,472 autoreload Watching for file changes with StatReloader
+INFO 2025-01-20 04:23:45,968 autoreload Watching for file changes with StatReloader
+INFO 2025-01-20 04:24:20,464 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-20 04:24:20,466 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-20 04:24:22,130 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-20 04:24:22,132 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-20 04:24:22,134 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-20 04:24:30,684 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-20 04:24:30,686 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-20 04:25:26,674 autoreload /home/ilmir/dev_vscode/munasib/backend/src/worker_api/views.py changed, reloading.
+INFO 2025-01-20 04:25:26,895 autoreload Watching for file changes with StatReloader
+INFO 2025-01-20 05:23:37,134 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-20 05:23:37,136 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-20 05:23:39,184 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-20 05:23:39,186 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-20 05:23:39,189 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-20 05:23:42,808 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-20 05:23:42,811 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-20 05:29:10,441 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-20 05:29:10,443 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-20 05:29:12,256 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-20 05:29:12,259 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-20 05:29:12,261 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-20 05:29:16,147 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-20 05:29:16,149 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+WARNING 2025-01-20 05:29:21,503 log Not Found: /worker_api/record_operation/
+WARNING 2025-01-20 05:29:21,504 basehttp "POST /worker_api/record_operation/ HTTP/1.1" 404 48
+INFO 2025-01-20 05:30:24,510 basehttp "GET /admin/main/%D1%81hapter/ HTTP/1.1" 302 0
+INFO 2025-01-20 05:30:26,946 basehttp "GET /admin/login/?next=/admin/main/%25D1%2581hapter/ HTTP/1.1" 200 4401
+WARNING 2025-01-20 05:30:29,391 log Not Found: /favicon.ico
+WARNING 2025-01-20 05:30:29,391 basehttp "GET /favicon.ico HTTP/1.1" 404 2524
+INFO 2025-01-20 05:30:39,551 basehttp "POST /admin/login/?next=/admin/main/%25D1%2581hapter/ HTTP/1.1" 302 0
+WARNING 2025-01-20 05:30:39,561 log Not Found: /admin/main/сhapter/
+WARNING 2025-01-20 05:30:39,562 basehttp "GET /admin/main/%D1%81hapter/ HTTP/1.1" 404 6765
+INFO 2025-01-20 05:30:47,712 basehttp "GET /admin HTTP/1.1" 301 0
+INFO 2025-01-20 05:30:47,798 basehttp "GET /admin/ HTTP/1.1" 200 13925
+INFO 2025-01-20 05:30:47,881 basehttp "GET /static/admin/js/theme.js HTTP/1.1" 200 1653
+INFO 2025-01-20 05:30:47,888 basehttp "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2804
+INFO 2025-01-20 05:30:47,889 basehttp "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+INFO 2025-01-20 05:30:47,919 basehttp "GET /static/admin/css/base.css HTTP/1.1" 200 22092
+INFO 2025-01-20 05:30:47,920 basehttp "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2025-01-20 05:30:47,920 basehttp "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+INFO 2025-01-20 05:30:47,944 basehttp "GET /static/admin/css/responsive.css HTTP/1.1" 200 17972
+INFO 2025-01-20 05:30:47,990 basehttp "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-01-20 05:30:47,990 basehttp "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+INFO 2025-01-20 05:30:47,991 basehttp "GET /static/admin/img/icon-deletelink.svg HTTP/1.1" 200 392
+INFO 2025-01-20 05:30:52,033 basehttp "GET /admin/admins_panel/operation/ HTTP/1.1" 200 12297
+INFO 2025-01-20 05:30:52,166 basehttp "GET /static/admin/css/changelists.css HTTP/1.1" 200 6878
+INFO 2025-01-20 05:30:52,234 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+INFO 2025-01-20 05:30:52,292 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2025-01-20 05:30:52,292 basehttp "GET /static/admin/js/filters.js HTTP/1.1" 200 978
+INFO 2025-01-20 05:30:52,338 basehttp "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+INFO 2025-01-20 05:30:52,386 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+INFO 2025-01-20 05:30:52,386 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9097
+INFO 2025-01-20 05:30:52,397 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+INFO 2025-01-20 05:30:52,432 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+INFO 2025-01-20 05:30:52,457 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2025-01-20 05:30:52,642 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+INFO 2025-01-20 05:30:53,157 basehttp "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 331
+INFO 2025-01-20 05:30:54,952 basehttp "GET /admin/admins_panel/operationlog/ HTTP/1.1" 200 15101
+INFO 2025-01-20 05:30:54,985 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+INFO 2025-01-20 05:31:07,029 basehttp "GET /admin/admins_panel/operationlog/8/change/ HTTP/1.1" 200 17291
+INFO 2025-01-20 05:31:07,073 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+INFO 2025-01-20 05:31:07,148 basehttp "GET /static/admin/js/calendar.js HTTP/1.1" 200 9141
+INFO 2025-01-20 05:31:07,183 basehttp "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 200 19319
+INFO 2025-01-20 05:31:07,201 basehttp "GET /static/admin/css/forms.css HTTP/1.1" 200 8794
+INFO 2025-01-20 05:31:07,241 basehttp "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+INFO 2025-01-20 05:31:07,241 basehttp "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+INFO 2025-01-20 05:31:07,323 basehttp "GET /static/admin/css/widgets.css HTTP/1.1" 200 11564
+INFO 2025-01-20 05:31:07,324 basehttp "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+INFO 2025-01-20 05:31:07,442 basehttp "GET /static/admin/img/icon-clock.svg HTTP/1.1" 200 677
+INFO 2025-01-20 05:31:07,443 basehttp "GET /static/admin/img/icon-calendar.svg HTTP/1.1" 200 1086
+INFO 2025-01-20 05:31:16,373 basehttp "GET /admin/admins_panel/operationlog/ HTTP/1.1" 200 15101
+INFO 2025-01-20 05:31:16,408 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+INFO 2025-01-20 05:31:24,122 basehttp "POST /admin/admins_panel/operationlog/ HTTP/1.1" 200 12201
+INFO 2025-01-20 05:31:24,238 basehttp "GET /static/admin/js/cancel.js HTTP/1.1" 200 884
+INFO 2025-01-20 05:31:26,046 basehttp "POST /admin/admins_panel/operationlog/ HTTP/1.1" 302 0
+INFO 2025-01-20 05:31:26,058 basehttp "GET /admin/admins_panel/operationlog/ HTTP/1.1" 200 10649
+INFO 2025-01-20 05:31:26,131 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+INFO 2025-01-20 05:31:26,190 basehttp "GET /static/admin/img/icon-yes.svg HTTP/1.1" 200 436
+INFO 2025-01-20 05:33:51,793 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-20 05:33:51,795 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-20 05:33:53,886 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-20 05:33:53,888 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-20 05:33:53,889 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-20 05:33:57,329 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-20 05:33:57,330 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+WARNING 2025-01-20 05:34:03,215 log Not Found: /worker_api/record_operation/
+WARNING 2025-01-20 05:34:03,216 basehttp "POST /worker_api/record_operation/ HTTP/1.1" 404 48
+INFO 2025-01-20 05:35:15,551 autoreload /home/ilmir/dev_vscode/munasib/backend/src/worker_api/views.py changed, reloading.
+INFO 2025-01-20 05:35:19,069 autoreload Watching for file changes with StatReloader
+INFO 2025-01-20 05:35:29,609 autoreload Watching for file changes with StatReloader
+INFO 2025-01-20 05:35:43,911 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-20 05:35:43,914 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-20 05:35:45,565 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-20 05:35:45,567 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-20 05:35:45,569 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-20 05:35:49,729 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 112
+INFO 2025-01-20 05:35:49,731 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 17
+INFO 2025-01-20 05:36:00,155 basehttp "POST /worker_api/record_operation/ HTTP/1.1" 201 46
+INFO 2025-01-20 05:36:00,156 basehttp - Broken pipe from ('127.0.0.1', 36642)
+INFO 2025-01-20 05:36:15,986 basehttp "GET /admin/admins_panel/operationlog/ HTTP/1.1" 200 12161
+INFO 2025-01-20 05:36:16,018 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+INFO 2025-01-20 05:36:18,434 basehttp "GET /admin/admins_panel/operationlog/9/change/ HTTP/1.1" 200 17199
+INFO 2025-01-20 05:36:18,484 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+INFO 2025-01-20 05:36:24,401 basehttp "GET /admin/admins_panel/operationlog/ HTTP/1.1" 200 12161
+INFO 2025-01-20 05:36:24,446 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+INFO 2025-01-20 05:36:27,522 basehttp "GET /admin/admins_panel/worker/ HTTP/1.1" 200 12648
+INFO 2025-01-20 05:36:27,564 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+INFO 2025-01-20 05:36:28,879 basehttp "GET /admin/admins_panel/worker/5/change/ HTTP/1.1" 200 15255
+INFO 2025-01-20 05:36:28,925 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+INFO 2025-01-20 05:36:31,425 basehttp "GET /admin/admins_panel/operationlog/ HTTP/1.1" 200 12161
+INFO 2025-01-20 05:36:31,463 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+INFO 2025-01-20 05:56:16,260 autoreload Watching for file changes with StatReloader
+INFO 2025-01-20 05:56:29,275 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-20 05:56:29,278 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-20 05:56:31,014 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 05:56:31,016 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 60
+INFO 2025-01-20 05:56:31,018 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 05:56:34,623 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 05:56:34,626 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 60
+INFO 2025-01-20 06:19:18,493 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-20 06:19:18,514 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-20 06:19:20,385 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 06:19:20,556 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 60
+INFO 2025-01-20 06:19:20,558 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 06:19:23,527 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 06:19:23,529 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 60
+INFO 2025-01-20 06:19:30,797 basehttp "POST /worker_api/record_operation/ HTTP/1.1" 201 46
+INFO 2025-01-20 06:19:30,800 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 06:19:30,802 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 104
+INFO 2025-01-20 06:23:13,233 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-20 06:23:13,235 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-20 06:23:14,913 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 06:23:14,915 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 104
+INFO 2025-01-20 06:23:14,918 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 06:23:19,736 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 06:23:19,739 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 104
+INFO 2025-01-20 06:24:26,460 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-20 06:24:26,462 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-20 06:24:28,686 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 06:24:28,688 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 104
+INFO 2025-01-20 06:24:28,690 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 06:26:35,192 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-20 06:26:35,194 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-20 06:26:39,873 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 06:26:39,876 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 104
+INFO 2025-01-20 06:26:39,878 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 06:30:37,932 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-20 06:30:37,933 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-20 06:30:40,158 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 06:30:40,160 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 104
+INFO 2025-01-20 06:30:40,162 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 06:47:41,809 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-20 06:47:41,811 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-20 06:47:45,043 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 06:47:45,046 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 104
+INFO 2025-01-20 06:47:45,047 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 06:53:51,702 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-20 06:53:51,704 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-20 06:53:53,362 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 06:53:53,365 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 104
+INFO 2025-01-20 06:53:53,367 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 06:54:23,056 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-20 06:54:23,058 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-20 06:54:26,212 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 06:54:26,214 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 104
+INFO 2025-01-20 06:55:03,956 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-20 06:55:03,957 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-20 06:55:05,489 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 06:55:05,491 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 104
+INFO 2025-01-20 06:55:35,573 autoreload Watching for file changes with StatReloader
+INFO 2025-01-20 06:55:37,951 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-20 06:55:37,953 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-20 06:55:41,202 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 06:55:41,204 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 104
+INFO 2025-01-20 07:15:25,724 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-20 07:15:25,726 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-20 07:15:28,706 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 07:15:28,708 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 104
+INFO 2025-01-20 07:15:28,711 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 07:16:24,623 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-20 07:16:24,625 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-20 07:16:26,737 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 07:16:26,739 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 104
+INFO 2025-01-20 07:16:26,741 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 07:19:10,004 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-20 07:19:10,006 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-20 07:19:14,563 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 07:19:14,566 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 104
+INFO 2025-01-20 07:19:14,568 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 07:19:24,146 basehttp "POST /worker_api/record_operation/ HTTP/1.1" 201 46
+INFO 2025-01-20 07:19:24,148 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 07:19:24,151 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 155
+INFO 2025-01-20 07:19:24,153 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 07:22:02,027 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-20 07:22:02,029 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-20 07:22:04,429 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 07:22:04,432 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 155
+INFO 2025-01-20 07:22:04,434 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 07:22:14,099 basehttp "POST /worker_api/record_operation/ HTTP/1.1" 201 46
+INFO 2025-01-20 07:22:14,101 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 07:22:14,105 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 206
+INFO 2025-01-20 07:22:14,108 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 07:22:18,646 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 07:22:18,649 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 206
+INFO 2025-01-20 07:22:18,651 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 07:22:28,567 basehttp "POST /worker_api/record_operation/ HTTP/1.1" 201 46
+INFO 2025-01-20 07:22:28,570 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 07:22:28,572 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 257
+INFO 2025-01-20 07:22:28,575 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 07:22:39,262 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 07:22:39,265 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 257
+INFO 2025-01-20 07:22:39,267 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 07:22:48,189 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 07:22:48,192 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 257
+INFO 2025-01-20 07:22:48,194 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 07:24:43,210 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 07:24:43,213 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 257
+INFO 2025-01-20 07:24:43,215 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 07:30:28,564 basehttp "GET /worker_api/check_telegram_id/6903748145/ HTTP/1.1" 200 15
+INFO 2025-01-20 07:30:28,566 basehttp "GET /worker_api/check_admins_rights/6903748145/ HTTP/1.1" 200 22
+INFO 2025-01-20 07:30:35,437 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 07:30:35,441 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 257
+INFO 2025-01-20 07:30:35,444 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 07:30:51,894 basehttp "POST /worker_api/record_operation/ HTTP/1.1" 201 46
+INFO 2025-01-20 07:30:51,896 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 07:30:51,899 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 308
+INFO 2025-01-20 07:31:10,840 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 07:31:10,844 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 308
+INFO 2025-01-20 07:31:17,999 basehttp "POST /worker_api/record_operation/ HTTP/1.1" 201 46
+INFO 2025-01-20 07:31:18,002 basehttp "GET /worker_api/status_window/6903748145/ HTTP/1.1" 200 114
+INFO 2025-01-20 07:31:18,005 basehttp "GET /worker_api/works_done_today/6903748145/ HTTP/1.1" 200 351

@@ -61,7 +61,7 @@ async def position_received(callback_query: types.CallbackQuery, state: FSMConte
         await register_user(
             name=data["name"],
             position_id=data["position_id"],
-            id_telegram=callback_query.from_user.id,
+            telegram_id=callback_query.from_user.id,
         )
         await callback_query.message.answer("Registration completed successfully!")
         button = await start_work_button()
