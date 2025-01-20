@@ -10,7 +10,7 @@ from dotenv import find_dotenv, load_dotenv
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from src.handlers.start_handler import register_start
-from src.handlers.status_window import register_status
+from src.handlers.worker_ui import register_status
 
 
 

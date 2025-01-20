@@ -25,7 +25,6 @@ async def main_menu():
     # Создаём список кнопок
     buttons = [
         InlineKeyboardButton(text="Сменить операцию", callback_data="change_operation"),
-        InlineKeyboardButton(text="Получить зарплату", callback_data="get_salary"),
         InlineKeyboardButton(text="Внести количество", callback_data="add_quantity"),
         InlineKeyboardButton(text="Завершение работы", callback_data="end_work"),
     ]

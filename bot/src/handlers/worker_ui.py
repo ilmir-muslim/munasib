@@ -1,4 +1,5 @@
 import asyncio
+from email import message
 from aiogram import Dispatcher, types
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
@@ -22,7 +23,7 @@ class QuantityState(StatesGroup):
     waiting_for_quantity = State()
 
 
-async def update_status(callback_query: types.CallbackQuery, state: FSMContext):
+async def update_status(callback_query: types.CallbackQuery, state: FSMContext, new_msg=False):
     """Обновляет окно статуса для пользователя."""
     try:
         user_id = callback_query.from_user.id
@@ -58,9 +59,15 @@ async def update_status(callback_query: types.CallbackQuery, state: FSMContext):
         )
 
         kb = await main_menu()
-        await callback_query.message.edit_text(
+        if new_msg:
+            await callback_query.message.answer(
             text=final_output, reply_markup=kb, parse_mode="HTML"
         )
+        else: 
+                        await callback_query.message.edit_text(
+            text=final_output, reply_markup=kb, parse_mode="HTML"
+        )
+
     except Exception as e:
         print(f"Error updating status: {e}")
 
@@ -152,7 +159,9 @@ async def add_quantity(callback_query: types.CallbackQuery, state: FSMContext):
     else:
         error_message = response.get("error", "Не удалось записать операцию.")
         print(f"Ошибка: {error_message} str 142")
-    await update_status(callback_query, state)
+
+    await callback_query.message.delete()
+    await update_status(callback_query, state, new_msg=True)
 
 
 async def handle_go_back(callback_query: types.CallbackQuery):
