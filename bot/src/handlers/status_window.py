@@ -1,15 +1,25 @@
 import asyncio
 from aiogram import Dispatcher, types
 from aiogram.fsm.context import FSMContext
-from aiogram.fsm.state import State
+from aiogram.fsm.state import State, StatesGroup
 
 from src.api_client import (
     check_worker_status,
     get_default_operation,
     get_operation_list,
+    record_operation,
     works_done_today,
 )
-from src.kbds.inline_kb import change_operation, main_menu, start_work_button
+from src.kbds.inline_kb import (
+    change_operation,
+    confirm_quantity,
+    main_menu,
+    start_work_button,
+)
+
+
+class QuantityState(StatesGroup):
+    waiting_for_quantity = State()
 
 
 async def update_status(callback_query: types.CallbackQuery, state: FSMContext):
@@ -47,17 +57,15 @@ async def update_status(callback_query: types.CallbackQuery, state: FSMContext):
             f"<b>{works_done}</b>"
         )
 
-        keyboard = await main_menu()
+        kb = await main_menu()
         await callback_query.message.edit_text(
-            text=final_output, reply_markup=keyboard, parse_mode="HTML"
+            text=final_output, reply_markup=kb, parse_mode="HTML"
         )
     except Exception as e:
         print(f"Error updating status: {e}")
 
 
-async def status_window(
-    callback_query: types.CallbackQuery, state: FSMContext, break_flag=False
-):
+async def status_window(callback_query: types.CallbackQuery, state: FSMContext):
     while True:
         try:
             await update_status(callback_query, state)
@@ -65,12 +73,11 @@ async def status_window(
         except Exception as e:
             print(f"Error during status window: {e}")
 
-async def handle_change_operation(
-    callback_query: types.CallbackQuery, state: FSMContext
-):
+
+async def handle_change_operation(callback_query: types.CallbackQuery):
     """Обработчик для смены операции."""
-    keyboard = await change_operation()
-    await callback_query.message.edit_reply_markup(reply_markup=keyboard)
+    kb = await change_operation()
+    await callback_query.message.edit_reply_markup(reply_markup=kb)
 
 
 async def handle_operation_selection(
@@ -99,10 +106,59 @@ async def handle_operation_selection(
         await callback_query.answer("Произошла ошибка.", show_alert=True)
 
 
+async def ask_quantity(callback_query: types.CallbackQuery, state: FSMContext):
+    """Запрашиваем у пользователя количество."""
+    button = await confirm_quantity()
+    await callback_query.message.edit_text(
+        "Введите количество и нажмите подтвердить", reply_markup=button
+    )
+    # Переходим в состояние ожидания ввода количества
+    await state.set_state(QuantityState.waiting_for_quantity)
+
+
+async def save_quantity_to_state(message: types.Message, state: FSMContext):
+    await state.update_data(quantity=message.text)
+
+
+async def add_quantity(callback_query: types.CallbackQuery, state: FSMContext):
+    state_data = await state.get_data()
+    print(f"str 127 {state_data}")
+    quantity = state_data["quantity"]
+
+    try:
+        quantity = int(quantity)
+    except ValueError:
+        await callback_query.message.reply(
+            "Пожалуйста, введите корректное числовое значение."
+        )
+        return
+
+    telegram_id = callback_query.from_user.id
+
+    operation_id = state_data['selected_operation']["id"]
+    print(f"str 127 {operation_id}")
+
+    if not operation_id:
+        print("Операция не найдена. str 127")
+        return
+
+    # Записываем операцию
+    response = await record_operation(
+        telegram_id=telegram_id, operation_id=operation_id, quantity=quantity
+    )
+
+    if response.get("success"):
+        print("Операция успешно записана!")
+    else:
+        error_message = response.get("error", "Не удалось записать операцию.")
+        print(f"Ошибка: {error_message} str 142")
+    await update_status(callback_query, state)
+
+
 async def handle_go_back(callback_query: types.CallbackQuery):
     """Возврат к окну статуса."""
-    keyboard = await main_menu()
-    await callback_query.message.edit_reply_markup(reply_markup=keyboard)
+    kb = await main_menu()
+    await callback_query.message.edit_reply_markup(reply_markup=kb)
 
 
 async def end_work(callback_query: types.CallbackQuery, state: FSMContext):
@@ -119,6 +175,9 @@ def register_status(dp: Dispatcher):
     dp.callback_query.register(
         handle_change_operation, lambda c: c.data == "change_operation"
     )
+    dp.callback_query.register(handle_operation_selection, lambda c: c.data.isdigit())
     dp.callback_query.register(handle_go_back, lambda c: c.data == "go_back")
     dp.callback_query.register(end_work, lambda c: c.data == "end_work")
-    dp.callback_query.register(handle_operation_selection, lambda c: c.data.isdigit())
+    dp.callback_query.register(ask_quantity, lambda c: c.data == "add_quantity")
+    dp.message.register(save_quantity_to_state, QuantityState.waiting_for_quantity)
+    dp.callback_query.register(add_quantity, lambda c: c.data == "confirm")
