@@ -182,11 +182,12 @@ class WorksDoneToday(APIView):
         except Worker.DoesNotExist:
             return Response({"error": "Worker not found"}, status=404)
         
+        
 class WorkersStaticInfo(APIView):
     permission_classes = [AllowAny]
 
     def get(self, request, telegram_id):
-        workers = Worker.objects.all()
+        workers = Worker.objects.filter(telegram_id=telegram_id)
         return Response(
             {
                 "workers": [

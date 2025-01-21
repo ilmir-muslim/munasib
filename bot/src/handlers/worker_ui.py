@@ -23,7 +23,9 @@ class QuantityState(StatesGroup):
     waiting_for_quantity = State()
 
 
-async def update_status(callback_query: types.CallbackQuery, state: FSMContext, new_msg=False):
+async def update_status(
+    callback_query: types.CallbackQuery, state: FSMContext, new_msg=False
+):
     """Обновляет окно статуса для пользователя."""
     try:
         user_id = callback_query.from_user.id
@@ -57,18 +59,19 @@ async def update_status(callback_query: types.CallbackQuery, state: FSMContext, 
             "<b>📋 Сделано операций за сегодня:</b>\n"
             f"<b>{works_done}</b>"
         )
-        workers_data = get_wokers_static_info(user_id)
-        edit_goods = workers_data['edit_goods']
+        workers_data = await get_wokers_static_info(user_id)
+        worker = next((w for w in workers_data if w["telegram_id"] == user_id), None)
+        edit_goods = worker["edit_goods"]
         kb = await main_menu(edit_goods)
 
         if new_msg:
             await callback_query.message.answer(
-            text=final_output, reply_markup=kb, parse_mode="HTML"
-        )
-        else: 
-                        await callback_query.message.edit_text(
-            text=final_output, reply_markup=kb, parse_mode="HTML"
-        )
+                text=final_output, reply_markup=kb, parse_mode="HTML"
+            )
+        else:
+            await callback_query.message.edit_text(
+                text=final_output, reply_markup=kb, parse_mode="HTML"
+            )
 
     except Exception as e:
         print(f"Error updating status: {e}")
@@ -144,7 +147,7 @@ async def add_quantity(callback_query: types.CallbackQuery, state: FSMContext):
 
     telegram_id = callback_query.from_user.id
 
-    operation_id = state_data['selected_operation']["id"]
+    operation_id = state_data["selected_operation"]["id"]
     print(f"str 127 {operation_id}")
 
     if not operation_id:

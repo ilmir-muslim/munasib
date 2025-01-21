@@ -90,7 +90,7 @@ async def get_wokers_static_info(user_id) -> list:
                         "admin_rights": item["admin_rights"],
                         "edit_goods": item["edit_goods"],
                     }
-                    for item in data.get("workers_static_info", [])
+                    for item in data.get("workers", [])
                 ]
                 CacheManager.write_cache(cache_name, workers_static_info)
                 print("Workers static info fetched from server and cached")

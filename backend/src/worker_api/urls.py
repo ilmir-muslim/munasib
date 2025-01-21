@@ -37,5 +37,5 @@ urlpatterns = [
         name="works_done_today",
     ),
     path("operations/", OperationList.as_view(), name="operations"),
-    path("workers_static_info/", WorkersStaticInfo.as_view(), name="workers_static_info"),
+    path("workers_static_info/<int:telegram_id>/", WorkersStaticInfo.as_view(), name="workers_static_info"),
 ]
