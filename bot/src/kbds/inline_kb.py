@@ -20,7 +20,7 @@ async def start_work_button():
     return InlineKeyboardMarkup(inline_keyboard=button)
 
 
-async def main_menu():
+async def main_menu(edit_goods):
     """Генерация клавиатуры первого уровня меню."""
     # Создаём список кнопок
     buttons = [
@@ -28,6 +28,10 @@ async def main_menu():
         InlineKeyboardButton(text="Внести количество", callback_data="add_quantity"),
         InlineKeyboardButton(text="Завершение работы", callback_data="end_work"),
     ]
+    if edit_goods:
+        buttons.append(
+            InlineKeyboardButton(text="Добавить товар", callback_data="edit_goods")
+        )
 
     # Создаём клавиатуру с row_width=3
     keyboard = InlineKeyboardMarkup(

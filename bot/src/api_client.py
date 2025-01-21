@@ -10,41 +10,49 @@ async def check_user_exists(user_id: int) -> bool:
         ) as response:
             if response.status == 200:
                 data = await response.json()
-                return data.get('exists', False)
+                return data.get("exists", False)
             return False
+
 
 async def register_user(name: str, position_id: int, telegram_id: int):
     async with aiohttp.ClientSession() as session:
-        payload = {
-            'name': name,
-            'position_id': position_id,
-            'telegram_id': telegram_id
-        }
+        payload = {"name": name, "position_id": position_id, "telegram_id": telegram_id}
         print(payload)
         async with session.post(
             "http://127.0.0.1:8000/worker_api/register_user/", json=payload
         ) as response:
-            if response.status == 201: 
+            if response.status == 201:
                 data = await response.json()
                 return data
             return None
 
+
 async def get_positions() -> list:
     cache_name = "positions_cache"
     cached_data = CacheManager.read_cache(cache_name)
-    
-    
+
     if cached_data:
         print("Positions fetched from cache")
         return cached_data
 
     async with aiohttp.ClientSession() as session:
-        async with session.get("http://127.0.0.1:8000/worker_api/positions/") as response:
+        async with session.get(
+            "http://127.0.0.1:8000/worker_api/positions/"
+        ) as response:
             if response.status == 200:
                 data = await response.json()
-                positions = [{"id": pos["id"], "name": pos["name"], "default_operation": pos["default_operation"]} for pos in data.get("positions", [])]
+                positions = [
+                    {
+                        "id": pos["id"],
+                        "name": pos["name"],
+                        "default_operation": pos["default_operation"],
+                    }
+                    for pos in data.get("positions", [])
+                ]
                 CacheManager.write_cache(cache_name, positions)  # Сохранение в кэш
-                print("Positions fetched from server and cached") # Отладочное сообщение
+                print(
+                    "Positions fetched from server and cached"
+                )  # Отладочное сообщение
                 return positions
             return []
 
@@ -58,6 +66,36 @@ async def check_admins_rights(user_id: int) -> bool:
                 data = await response.json()
                 return data.get("admins_rights", False)
             return False
+
+
+async def get_wokers_static_info(user_id) -> list:
+    cache_name = "wokers_static_info"
+    cached_data = CacheManager.read_cache(cache_name)
+
+    if cached_data:
+        print("Workers static info fetched from cache")
+        return cached_data
+    async with aiohttp.ClientSession() as session:
+        async with session.get(
+            f"http://127.0.0.1:8000/worker_api/workers_static_info/{user_id}/"
+        ) as response:
+            if response.status == 200:
+                data = await response.json()
+                workers_static_info = [
+                    {
+                        "id": item["id"],
+                        "telegram_id": item["telegram_id"],
+                        "name": item["name"],
+                        "position": item["position"],
+                        "admin_rights": item["admin_rights"],
+                        "edit_goods": item["edit_goods"],
+                    }
+                    for item in data.get("workers_static_info", [])
+                ]
+                CacheManager.write_cache(cache_name, workers_static_info)
+                print("Workers static info fetched from server and cached")
+                return workers_static_info
+            return []
 
 
 async def check_worker_status(user_id: int) -> str:
@@ -98,31 +136,38 @@ async def works_done_today(user_id: int) -> str:
 
                 # Форматирование операций
                 formatted_operations = "\n".join(
-                    f"{op['operation']}: {op['quantity']}"
-                    for op in operations
+                    f"{op['operation']}: {op['quantity']}" for op in operations
                 )
 
                 return formatted_operations  # Возвращаем текст
             return "No works done today."
-         
+
 
 async def get_operation_list():
     cache_name = "operations_cache"
     cached_data = CacheManager.read_cache(cache_name)
-    
+
     if cached_data:
-        print("Operations fetched from cache") # Отладочное сообщение
+        print("Operations fetched from cache")  # Отладочное сообщение
         return cached_data
 
     async with aiohttp.ClientSession() as session:
-        async with session.get("http://127.0.0.1:8000/worker_api/operations/") as response:
+        async with session.get(
+            "http://127.0.0.1:8000/worker_api/operations/"
+        ) as response:
             if response.status == 200:
                 data = await response.json()
-                operations = [{"id": op["id"], "name": op["name"], "price": op["price"]} for op in data.get("operations", [])]
+                operations = [
+                    {"id": op["id"], "name": op["name"], "price": op["price"]}
+                    for op in data.get("operations", [])
+                ]
                 CacheManager.write_cache(cache_name, operations)  # Сохранение в кэш
-                print("Operations fetched from server and cached") # Отладочное сообщение
+                print(
+                    "Operations fetched from server and cached"
+                )  # Отладочное сообщение
                 return operations
             return []
+
 
 async def get_default_operation(user_id: int) -> dict | None:
     async with aiohttp.ClientSession() as session:
@@ -139,17 +184,19 @@ async def get_default_operation(user_id: int) -> dict | None:
                 return None
 
     positions = await get_positions()
-    print(f"Positions: {positions}") # Отладочное сообщение
+    print(f"Positions: {positions}")  # Отладочное сообщение
     operations = await get_operation_list()
-    print(f"Operations: {operations}") # Отладочное сообщение
+    print(f"Operations: {operations}")  # Отладочное сообщение
 
     position = next((pos for pos in positions if pos["name"] == position_name), None)
     if not position:
         return None
 
     default_operation_id = position["default_operation"]
-    operation = next((op for op in operations if op["id"] == default_operation_id), None)
-    print(f"Default operation: {operation}") # Отладочное сообщение
+    operation = next(
+        (op for op in operations if op["id"] == default_operation_id), None
+    )
+    print(f"Default operation: {operation}")  # Отладочное сообщение
     return operation
 
 
@@ -161,7 +208,9 @@ async def record_operation(telegram_id: int, operation_id: int, quantity: int) -
             "operation_id": operation_id,
             "quantity": quantity,
         }
-        async with session.post("http://127.0.0.1:8000/worker_api/record_operation/", json=payload) as response:
+        async with session.post(
+            "http://127.0.0.1:8000/worker_api/record_operation/", json=payload
+        ) as response:
             if response.status == 201:
                 return {"success": True, "message": "Operation successfully recorded."}
             error_message = await response.json()

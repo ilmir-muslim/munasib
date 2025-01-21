@@ -1,5 +1,4 @@
 import asyncio
-from email import message
 from aiogram import Dispatcher, types
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
@@ -8,6 +7,7 @@ from src.api_client import (
     check_worker_status,
     get_default_operation,
     get_operation_list,
+    get_wokers_static_info,
     record_operation,
     works_done_today,
 )
@@ -57,8 +57,10 @@ async def update_status(callback_query: types.CallbackQuery, state: FSMContext, 
             "<b>📋 Сделано операций за сегодня:</b>\n"
             f"<b>{works_done}</b>"
         )
+        workers_data = get_wokers_static_info(user_id)
+        edit_goods = workers_data['edit_goods']
+        kb = await main_menu(edit_goods)
 
-        kb = await main_menu()
         if new_msg:
             await callback_query.message.answer(
             text=final_output, reply_markup=kb, parse_mode="HTML"

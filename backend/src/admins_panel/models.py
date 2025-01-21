@@ -22,6 +22,7 @@ class Position(models.Model):
         Operation, on_delete=models.SET_NULL, null=True, blank=True
     )
     admins_rights = models.BooleanField("Права админа", default=False)
+    edit_goods = models.BooleanField("Права на редактирование товаров", default=False)
 
     class Meta:
         verbose_name = "Должность"
@@ -29,6 +30,7 @@ class Position(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class Worker(models.Model):
     name = models.CharField("Работник", max_length=50)
@@ -39,7 +41,9 @@ class Worker(models.Model):
 
     @staticmethod
     def get_deleted_worker():
-        return Worker.objects.get_or_create(name="Удаленный работник", defaults={"salary": 0})[0]
+        return Worker.objects.get_or_create(
+            name="Удаленный работник", defaults={"salary": 0}
+        )[0]
 
     class Meta:
         verbose_name = "Работник"
@@ -56,8 +60,11 @@ class Worker(models.Model):
         self.salary -= amount
         self.save()
 
+
 class OperationLog(models.Model):
-    worker = models.ForeignKey(Worker, on_delete=models.SET_DEFAULT, default=Worker.get_deleted_worker)
+    worker = models.ForeignKey(
+        Worker, on_delete=models.SET_DEFAULT, default=Worker.get_deleted_worker
+    )
     operation = models.ForeignKey(Operation, on_delete=models.CASCADE)
     date = models.DateTimeField("Дата выполнения работ", default=now)
     quantity = models.IntegerField("Количество выполненных работ")
@@ -80,6 +87,8 @@ def update_worker_salary(sender, instance, created, **kwargs):
 class Goods(models.Model):
     name = models.CharField("Товар", max_length=50)
     price = models.FloatField("Цена товара")
+    color = models.CharField("Цвет товара", max_length=50, null=True, blank=True)
+    size = models.CharField("Размер товара", max_length=50, null=True, blank=True)
     quantity = models.IntegerField("Количество товара")
 
     class Meta:
