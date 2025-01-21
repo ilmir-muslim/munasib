@@ -20,7 +20,7 @@ async def start_work_button():
     return InlineKeyboardMarkup(inline_keyboard=button)
 
 
-async def main_menu(edit_goods):
+async def main_menu(edit_goods=False):
     """Генерация клавиатуры первого уровня меню."""
     # Создаём список кнопок
     buttons = [

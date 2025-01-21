@@ -197,7 +197,8 @@ class WorkersStaticInfo(APIView):
                         "name": worker.name,
                         "position": worker.position.name,
                         "admin_rights": worker.position.admins_rights,
-                        "edit_goods": worker.position.edit_goods
+                        "edit_goods": worker.position.edit_goods,
+                        "edit_goods_custom_version": worker.position.edit_goods_custom_version,
                     }
                     for worker in workers
                 ]

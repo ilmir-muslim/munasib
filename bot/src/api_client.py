@@ -1,3 +1,4 @@
+from aiogram.client import telegram
 import aiohttp
 
 from src.utils.cache_manager import CacheManager
@@ -71,10 +72,11 @@ async def check_admins_rights(user_id: int) -> bool:
 async def get_wokers_static_info(user_id) -> list:
     cache_name = "wokers_static_info"
     cached_data = CacheManager.read_cache(cache_name)
+    user_data = next((item for item in cached_data if item["telegram_id"] == user_id), None)
 
-    if cached_data:
+    if user_data:
         print("Workers static info fetched from cache")
-        return cached_data
+        return [user_data]
     async with aiohttp.ClientSession() as session:
         async with session.get(
             f"http://127.0.0.1:8000/worker_api/workers_static_info/{user_id}/"
@@ -89,12 +91,19 @@ async def get_wokers_static_info(user_id) -> list:
                         "position": item["position"],
                         "admin_rights": item["admin_rights"],
                         "edit_goods": item["edit_goods"],
+                        "edit_goods_custom_version": item["edit_goods_custom_version"],
                     }
                     for item in data.get("workers", [])
                 ]
-                CacheManager.write_cache(cache_name, workers_static_info)
-                print("Workers static info fetched from server and cached")
-                return workers_static_info
+                for worker in workers_static_info:
+
+                    if not any(cached["telegram_id"] == worker["telegram_id"] for cached in cached_data):
+                        cached_data.append(worker)
+
+                CacheManager.write_cache(cache_name, cached_data)
+                print(f"Worker static info for user_id {user_id} fetched from server and cached")
+                return [worker for worker in workers_static_info if worker["telegram_id"] == user_id]
+            print(f"Failed to fetch worker static info for user_id {user_id}")
             return []
 
 

@@ -61,8 +61,12 @@ async def update_status(
         )
         workers_data = await get_wokers_static_info(user_id)
         worker = next((w for w in workers_data if w["telegram_id"] == user_id), None)
-        edit_goods = worker["edit_goods"]
-        kb = await main_menu(edit_goods)
+        edit_goods_custom_version = worker["edit_goods_custom_version"]
+        if edit_goods_custom_version:
+            edit_goods = worker["edit_goods"]
+            kb = await main_menu(edit_goods)
+        else:
+            kb = await main_menu()
 
         if new_msg:
             await callback_query.message.answer(
@@ -171,7 +175,11 @@ async def add_quantity(callback_query: types.CallbackQuery, state: FSMContext):
 
 async def handle_go_back(callback_query: types.CallbackQuery):
     """Возврат к окну статуса."""
-    kb = await main_menu()
+    user_id = callback_query.from_user.id
+    workers_data = await get_wokers_static_info(user_id)
+    worker = next((w for w in workers_data if w["telegram_id"] == user_id), None)
+    edit_goods = worker["edit_goods"]
+    kb = await main_menu(edit_goods)
     await callback_query.message.edit_reply_markup(reply_markup=kb)
 
 
