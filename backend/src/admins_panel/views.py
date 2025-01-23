@@ -57,6 +57,8 @@ class OperationLogListView(SingleTableMixin, FilterView):
         total_value = filtered_queryset.aggregate(total=Sum("quantity"))["total"] or 0
         print("Total value:", total_value)
 
+        context["restricted_access"] = False
+
         if total_value is None:
             total_value = 0
 

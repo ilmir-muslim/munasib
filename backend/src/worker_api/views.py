@@ -1,5 +1,6 @@
 import logging
 
+from django.db.models import Sum
 from django.utils.timezone import now
 from rest_framework import status
 from rest_framework.exceptions import NotFound
@@ -8,9 +9,11 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from admins_panel.models import Goods, Operation, OperationLog, Position, Worker
+from admins_panel.views import OperationLogListView
 from worker_api.serializers import PositionSerializer
 
 logger = logging.getLogger("custom_logger")
+
 
 class RecordOperationView(APIView):
     permission_classes = [AllowAny]  # Позволяет доступ без авторизации
@@ -42,7 +45,9 @@ class RecordOperationView(APIView):
         try:
             worker = Worker.objects.get(telegram_id=telegram_id)
         except Worker.DoesNotExist as exc:
-            raise NotFound({"error": f"Worker with id {telegram_id} not found."}) from exc
+            raise NotFound(
+                {"error": f"Worker with id {telegram_id} not found."}
+            ) from exc
 
         try:
             operation = Operation.objects.get(id=operation_id)
@@ -122,7 +127,7 @@ class Positions(APIView):
     def get(self, request):
         logger.info("Fetching positions from database")
 
-        positions = Position.objects.select_related ('default_operation').all()
+        positions = Position.objects.select_related("default_operation").all()
         serializer = PositionSerializer(positions, many=True)
         logger.debug(f"Found {positions.count()} positions")
         return Response({"positions": serializer.data})
@@ -139,7 +144,7 @@ class StatusWindowView(APIView):
                 "должность": worker.position.name,
                 "зарплата": worker.salary,
             }
-            
+
             print(user_status)
             return Response({"user_status": user_status})
 
@@ -181,8 +186,8 @@ class WorksDoneToday(APIView):
 
         except Worker.DoesNotExist:
             return Response({"error": "Worker not found"}, status=404)
-        
-        
+
+
 class WorkersStaticInfo(APIView):
     permission_classes = [AllowAny]
 
@@ -198,12 +203,13 @@ class WorkersStaticInfo(APIView):
                         "position": worker.position.name,
                         "admin_rights": worker.position.admins_rights,
                         "edit_goods": worker.position.edit_goods,
-                        "edit_goods_custom_version": worker.position.edit_goods_custom_version,
+                        # "edit_goods_custom_version": worker.position.edit_goods_custom_version,
                     }
                     for worker in workers
                 ]
             }
         )
+
 
 class OperationList(APIView):
     permission_classes = [AllowAny]
@@ -213,10 +219,16 @@ class OperationList(APIView):
         return Response(
             {
                 "operations": [
-                    {"id": operation.id, "name": operation.name, "price": operation.price} for operation in operations
+                    {
+                        "id": operation.id,
+                        "name": operation.name,
+                        "price": operation.price,
+                    }
+                    for operation in operations
                 ]
             }
         )
+
 
 class GoodsList(APIView):
     permission_classes = [AllowAny]
@@ -226,8 +238,17 @@ class GoodsList(APIView):
         return Response(
             {
                 "goods": [
-                    {"id": good.id, "name": good.name, "price": good.price} for good in goods
+                    {"id": good.id, "name": good.name, "price": good.price}
+                    for good in goods
                 ]
             }
         )
-    
+
+class BotOperationLogListView(OperationLogListView):
+    template_name = "worker_api/operation_log.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Добавить любой специфичный контекст для бота, если нужно
+        context["restricted_access"] = True
+        return context

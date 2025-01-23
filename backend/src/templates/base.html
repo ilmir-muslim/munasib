@@ -15,21 +15,23 @@
             <h1>Административная панель</h1>
             <!-- Навигация -->
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="#">Админ-Панель</a>
+                <a class="navbar-brand" href="http://127.0.0.1:8000/admin">Админ-Панель</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'workers_list' %}">Список работников</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'operation_log_list' %}">Журнал операций</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Другие страницы</a>
-                        </li>
+                        {% if not restricted_access %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'workers_list' %}">Список работников</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'operation_log_list' %}">Журнал операций</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Другие страницы</a>
+                            </li>
+                        {% endif %}
                     </ul>
                 </div>
             </nav>

@@ -15,6 +15,7 @@ from src.kbds.inline_kb import (
     change_operation,
     confirm_quantity,
     main_menu,
+    settings,
     start_work_button,
 )
 
@@ -59,7 +60,7 @@ async def update_status(
             "<b>📋 Сделано операций за сегодня:</b>\n"
             f"<b>{works_done}</b>"
         )
-        kb = await main_menu(user_id)
+        kb = await main_menu()
 
         if new_msg:
             await callback_query.message.answer(
@@ -165,14 +166,16 @@ async def add_quantity(callback_query: types.CallbackQuery, state: FSMContext):
     await callback_query.message.delete()
     await update_status(callback_query, state, new_msg=True)
 
+async def settings_handler(callback_query: types.CallbackQuery):
+    """Обработчик настроек."""
+    user_id = callback_query.from_user.id
+    kb = await settings(user_id)
+    await callback_query.message.edit_reply_markup(reply_markup=kb)
+
 
 async def handle_go_back(callback_query: types.CallbackQuery):
     """Возврат к окну статуса."""
-    user_id = callback_query.from_user.id
-    workers_data = await get_wokers_static_info(user_id)
-    worker = next((w for w in workers_data if w["telegram_id"] == user_id), None)
-    edit_goods = worker["edit_goods"]
-    kb = await main_menu(edit_goods)
+    kb = await main_menu()
     await callback_query.message.edit_reply_markup(reply_markup=kb)
 
 
@@ -196,3 +199,4 @@ def register_status(dp: Dispatcher):
     dp.callback_query.register(ask_quantity, lambda c: c.data == "add_quantity")
     dp.message.register(save_quantity_to_state, QuantityState.waiting_for_quantity)
     dp.callback_query.register(add_quantity, lambda c: c.data == "confirm")
+    dp.callback_query.register(settings_handler, lambda c: c.data == "settings")

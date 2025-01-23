@@ -3,8 +3,6 @@ from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from src.api_client import get_operation_list, get_positions, get_wokers_static_info
 
 
-
-
 async def position_keyboard():
     """Создание динамической клавиатуры для выбора места работы."""
     positions = await get_positions()
@@ -26,22 +24,32 @@ async def settings(user_id: int):
     ]
     workers_data = await get_wokers_static_info(user_id)
     worker = next((w for w in workers_data if w["telegram_id"] == user_id), None)
-    edit_goods_custom_version = worker["edit_goods_custom_version"]
-
+    # edit_goods_custom_version = worker["edit_goods_custom_version"]
+    print(f"Worker str 26: {worker}")
     edit_goods = worker["edit_goods"]
-    if edit_goods_custom_version:
-        buttons.append(
-        InlineKeyboardButton(text="Добавить товар", callback_data="edit_goods")
-    ) #TODO прописать кастомное меню, если будет время(заказчик не просил)
+    print(f"edit_goods str 29: {edit_goods}")
+    # if edit_goods_custom_version:
+    #     buttons.append(
+    #         InlineKeyboardButton(text="Добавить товар", callback_data="edit_goods")
+    #     )  # TODO прописать кастомное меню, если будет время(заказчик не просил)
 
     if edit_goods:
         buttons.append(
-        InlineKeyboardButton(text="выбрать товар", callback_data="choose_goods"),
-        InlineKeyboardButton(text="изменить дату", callback_data="change_date"),
-        InlineKeyboardButton(text="сводная таблица", callback_data="show_goods"),
-    )
+            InlineKeyboardButton(text="выбрать товар", callback_data="choose_goods")
+        )
+        buttons.append(
+            InlineKeyboardButton(text="изменить дату", callback_data="change_date")
+        )
+        buttons.append(
+            InlineKeyboardButton(text="сводная таблица", callback_data="show_goods")
+        )
 
-    return InlineKeyboardMarkup(inline_keyboard=buttons)
+    keyboard = InlineKeyboardMarkup(
+    inline_keyboard=[buttons[i : i + 2] for i in range(0, len(buttons), 2)]
+    )
+    
+    return keyboard
+
 
 async def main_menu():
     """Генерация клавиатуры первого уровня меню."""
@@ -51,8 +59,6 @@ async def main_menu():
         InlineKeyboardButton(text="Внести количество", callback_data="add_quantity"),
         InlineKeyboardButton(text="Завершение работы", callback_data="end_work"),
     ]
-    
-
 
     # Создаём клавиатуру с row_width=3
     keyboard = InlineKeyboardMarkup(
@@ -75,6 +81,7 @@ async def change_operation():
 
     keyboard = InlineKeyboardMarkup(inline_keyboard=inline_keyboard)
     return keyboard
+
 
 async def confirm_quantity():
     button = [[InlineKeyboardButton(text="подтвердить", callback_data="confirm")]]
