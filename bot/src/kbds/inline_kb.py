@@ -1,6 +1,6 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from src.api_client import get_operation_list, get_positions
+from src.api_client import get_operation_list, get_positions, get_wokers_static_info
 
 
 
@@ -20,18 +20,39 @@ async def start_work_button():
     return InlineKeyboardMarkup(inline_keyboard=button)
 
 
-async def main_menu(edit_goods=False):
+async def settings(user_id: int):
+    buttons = [
+        InlineKeyboardButton(text="Сменить операцию", callback_data="change_operation"),
+    ]
+    workers_data = await get_wokers_static_info(user_id)
+    worker = next((w for w in workers_data if w["telegram_id"] == user_id), None)
+    edit_goods_custom_version = worker["edit_goods_custom_version"]
+
+    edit_goods = worker["edit_goods"]
+    if edit_goods_custom_version:
+        buttons.append(
+        InlineKeyboardButton(text="Добавить товар", callback_data="edit_goods")
+    ) #TODO прописать кастомное меню, если будет время(заказчик не просил)
+
+    if edit_goods:
+        buttons.append(
+        InlineKeyboardButton(text="выбрать товар", callback_data="choose_goods"),
+        InlineKeyboardButton(text="изменить дату", callback_data="change_date"),
+        InlineKeyboardButton(text="сводная таблица", callback_data="show_goods"),
+    )
+
+    return InlineKeyboardMarkup(inline_keyboard=buttons)
+
+async def main_menu():
     """Генерация клавиатуры первого уровня меню."""
     # Создаём список кнопок
     buttons = [
-        InlineKeyboardButton(text="Сменить операцию", callback_data="change_operation"),
+        InlineKeyboardButton(text="Настройки", callback_data="settings"),
         InlineKeyboardButton(text="Внести количество", callback_data="add_quantity"),
         InlineKeyboardButton(text="Завершение работы", callback_data="end_work"),
     ]
-    if edit_goods:
-        buttons.append(
-            InlineKeyboardButton(text="Добавить товар", callback_data="edit_goods")
-        )
+    
+
 
     # Создаём клавиатуру с row_width=3
     keyboard = InlineKeyboardMarkup(

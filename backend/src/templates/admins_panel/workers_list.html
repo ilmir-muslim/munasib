@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% load django_tables2 %}
+
+{% block content %}
+  <h2>Список сотрудников</h2>
+  {% render_table table %}
+{% endblock %}

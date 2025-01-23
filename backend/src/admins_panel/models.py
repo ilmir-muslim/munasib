@@ -26,6 +26,7 @@ class Position(models.Model):
     edit_goods_custom_version = models.BooleanField("Права на редактирование товаров, расширенная версия", default=False, null=True, blank=True)
 
 
+
     class Meta:
         verbose_name = "Должность"
         verbose_name_plural = "Должности"
@@ -92,6 +93,7 @@ class Goods(models.Model):
     color = models.CharField("Цвет товара", max_length=50, null=True, blank=True)
     size = models.CharField("Размер товара", max_length=50, null=True, blank=True)
     quantity = models.IntegerField("Количество товара")
+    release_date = models.DateField("Дата выпуска товара", default=now)
 
     class Meta:
         verbose_name = "Товар"

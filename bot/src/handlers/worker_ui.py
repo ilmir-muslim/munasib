@@ -59,14 +59,7 @@ async def update_status(
             "<b>📋 Сделано операций за сегодня:</b>\n"
             f"<b>{works_done}</b>"
         )
-        workers_data = await get_wokers_static_info(user_id)
-        worker = next((w for w in workers_data if w["telegram_id"] == user_id), None)
-        edit_goods_custom_version = worker["edit_goods_custom_version"]
-        if edit_goods_custom_version:
-            edit_goods = worker["edit_goods"]
-            kb = await main_menu(edit_goods)
-        else:
-            kb = await main_menu()
+        kb = await main_menu(user_id)
 
         if new_msg:
             await callback_query.message.answer(

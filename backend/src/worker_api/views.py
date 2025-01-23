@@ -7,7 +7,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from admins_panel.models import Operation, OperationLog, Position, Worker
+from admins_panel.models import Goods, Operation, OperationLog, Position, Worker
 from worker_api.serializers import PositionSerializer
 
 logger = logging.getLogger("custom_logger")
@@ -217,3 +217,17 @@ class OperationList(APIView):
                 ]
             }
         )
+
+class GoodsList(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        goods = Goods.objects.all()
+        return Response(
+            {
+                "goods": [
+                    {"id": good.id, "name": good.name, "price": good.price} for good in goods
+                ]
+            }
+        )
+    
