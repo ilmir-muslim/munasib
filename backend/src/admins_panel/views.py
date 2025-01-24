@@ -33,14 +33,14 @@ class OperationLogListView(SingleTableMixin, FilterView):
 
         if start_date:
             try:
-                start_date = datetime.strptime(start_date, "%Y-%m-%d").date()
+                start_date = datetime.strptime(start_date, "%d-%m-%Y").date()
                 queryset = queryset.filter(date__gte=start_date)
             except ValueError:
                 pass
 
         if end_date:
             try:
-                end_date = datetime.strptime(end_date, "%Y-%m-%d").date() + timedelta(
+                end_date = datetime.strptime(end_date, "%d-%m-%Y").date() + timedelta(
                     days=1
                 )
                 queryset = queryset.filter(date__lt=end_date)

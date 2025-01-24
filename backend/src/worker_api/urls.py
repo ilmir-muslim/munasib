@@ -1,5 +1,6 @@
 from django.urls import path
 from .views import (
+    BotOperationLogListView,
     CheckAdminsRightsView,
     CheckTelegramIdView,
     GoodsList,
@@ -44,4 +45,5 @@ urlpatterns = [
         name="workers_static_info",
     ),
     path("goods_list/", GoodsList.as_view(), name="goods_list"),
+    path("bot_operation_log/", BotOperationLogListView.as_view(), name="bot_operation_log"),
 ]

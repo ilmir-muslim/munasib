@@ -40,14 +40,28 @@ async def settings(user_id: int):
         buttons.append(
             InlineKeyboardButton(text="изменить дату", callback_data="change_date")
         )
+        worker_name = worker["name"]
+        url = f"http://127.0.0.1:8000/worker_api/bot_operation_log/?start_date=&end_date=&operation=&worker={worker_name}"
         buttons.append(
-            InlineKeyboardButton(text="сводная таблица", callback_data="show_goods")
+            InlineKeyboardButton(text="журнал операций", url=url)
         )
 
     keyboard = InlineKeyboardMarkup(
     inline_keyboard=[buttons[i : i + 2] for i in range(0, len(buttons), 2)]
     )
     
+    return keyboard
+
+
+async def choose_date(current_date, selected_date):
+    buttons = [
+        [InlineKeyboardButton(text="-1 день", callback_data="change_date:-1")]
+    ]
+    if selected_date < current_date:
+        buttons.append(
+            [InlineKeyboardButton(text="+1 день", callback_data="change_date:+1")]
+        )
+    keyboard = InlineKeyboardMarkup(inline_keyboard=buttons)
     return keyboard
 
 

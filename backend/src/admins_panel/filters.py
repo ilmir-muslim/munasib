@@ -1,13 +1,18 @@
+from django import forms
 import django_filters
-from .models import OperationLog
+from .models import Operation, OperationLog, Worker
 
 
 class OperationLogFilter(django_filters.FilterSet):
-    operation = django_filters.CharFilter(
-        field_name="operation__name", lookup_expr="icontains", label="Операция"
+    operation = django_filters.ModelChoiceFilter(
+        queryset=Operation.objects.all(),
+        label="Операция",
+        widget=forms.Select(attrs={'class': 'select2'})
     )
-    worker = django_filters.CharFilter(
-        field_name="worker__name", lookup_expr="icontains", label="Работник"
+    worker = django_filters.ModelChoiceFilter(
+        queryset=Worker.objects.all(),
+        label="Работник",
+        widget=forms.Select(attrs={'class': 'select2'})
     )
 
     class Meta:

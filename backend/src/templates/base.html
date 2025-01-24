@@ -3,12 +3,25 @@
 <html lang="ru">
 <head>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        /* Добавление отступов для всей страницы */
+        body {
+            margin: 30px; /* Внешние отступы */
+            padding: 30px; /* Внутренние отступы */
+            box-sizing: border-box; /* Учитывать padding в ширине и высоте */
+            font-family: Arial, sans-serif; /* Удобный шрифт для чтения */
+            font-size: 25px; /* Размер шрифта */
+        }
+    </style>
 </head>
+{% if not restricted_access %}
 <body>
     <div class="container mt-4">
         <header>
@@ -21,7 +34,6 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
-                        {% if not restricted_access %}
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'workers_list' %}">Список работников</a>
                             </li>
@@ -31,11 +43,12 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Другие страницы</a>
                             </li>
-                        {% endif %}
+            {% endif %}
                     </ul>
                 </div>
             </nav>
         </header>
+        
 
         <!-- Здесь будет вставляться содержимое страницы -->
         {% block content %}
@@ -45,8 +58,16 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Инициализация flatpickr
             flatpickr(".datepicker", {
-                dateFormat: "Y-m-d", // Формат даты
+                dateFormat: "d-m-Y",
+                locale: "ru"
+            });
+    
+            // Инициализация Select2 для всех полей с классом select2
+            $(".select2").select2({
+                placeholder: "Выберите вариант",
+                allowClear: true
             });
         });
     </script>

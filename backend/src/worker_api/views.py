@@ -245,7 +245,7 @@ class GoodsList(APIView):
         )
 
 class BotOperationLogListView(OperationLogListView):
-    template_name = "worker_api/operation_log.html"
+    template_name = "worker_api/bot_operation_log.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

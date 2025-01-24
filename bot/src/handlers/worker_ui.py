@@ -1,4 +1,5 @@
 import asyncio
+from datetime import datetime
 from aiogram import Dispatcher, types
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
@@ -7,12 +8,12 @@ from src.api_client import (
     check_worker_status,
     get_default_operation,
     get_operation_list,
-    get_wokers_static_info,
     record_operation,
     works_done_today,
 )
 from src.kbds.inline_kb import (
     change_operation,
+    choose_date,
     confirm_quantity,
     main_menu,
     settings,
@@ -25,16 +26,21 @@ class QuantityState(StatesGroup):
 
 
 async def update_status(
-    callback_query: types.CallbackQuery, state: FSMContext, new_msg=False
+    callback_query: types.CallbackQuery, state: FSMContext, new_msg=False, date=None
 ):
     """Обновляет окно статуса для пользователя."""
+
+    if date is None:
+        date = datetime.now().date()
+
     try:
         user_id = callback_query.from_user.id
         status = await check_worker_status(user_id)
         works_done = await works_done_today(user_id)
-        current_operation = await state.get_data()
+        state_data = await state.get_data()
 
-        selected_operation = current_operation.get("selected_operation", None)
+        selected_operation = state_data.get("selected_operation", None)
+        selected_date = state_data.get("selected_date", date)
 
         if not selected_operation:
             # Получение операции по умолчанию
@@ -50,15 +56,17 @@ async def update_status(
             # Получаем данные из состояния
             current_operation_name = selected_operation["name"]
             print(f"Current operation name from state: {current_operation_name}")
-            print(f"Current operation строка 41: {current_operation}")  # DEBUG
+            print(f"Current operation строка 41: {state_data}")  # DEBUG
 
         final_output = (
             "<b>🔍 Твой текущий статус:</b>\n"
             f"<b><i>{status}</i></b>\n\n"
-            f"<b>🔧 Текущая операция:</b>\n"
+            "<b>🔧 Текущая операция:</b>\n"
             f"<b>{current_operation_name}</b>\n\n"
             "<b>📋 Сделано операций за сегодня:</b>\n"
-            f"<b>{works_done}</b>"
+            f"<b>{works_done}</b>\n\n"
+            "<b>дата записи</b>\n"
+            f"<b>{selected_date}</b>"
         )
         kb = await main_menu()
 
@@ -166,12 +174,26 @@ async def add_quantity(callback_query: types.CallbackQuery, state: FSMContext):
     await callback_query.message.delete()
     await update_status(callback_query, state, new_msg=True)
 
+
 async def settings_handler(callback_query: types.CallbackQuery):
     """Обработчик настроек."""
     user_id = callback_query.from_user.id
     kb = await settings(user_id)
     await callback_query.message.edit_reply_markup(reply_markup=kb)
 
+
+async def handle_change_date(callback_query: types.CallbackQuery, state: FSMContext):
+    """Обработчик изменения даты."""
+    current_date = datetime.now().date()
+
+    # Устанавливаем дату в state, если она еще не установлена
+    data = await state.get_data()
+    selected_date = data.get("selected_date", current_date)
+
+    keyboard = await choose_date(current_date, selected_date)
+
+    await state.update_data(selected_date=selected_date)
+    await callback_query.message.edit_reply_markup("Выберите дату", reply_markup=keyboard)
 
 async def handle_go_back(callback_query: types.CallbackQuery):
     """Возврат к окну статуса."""
@@ -200,3 +222,4 @@ def register_status(dp: Dispatcher):
     dp.message.register(save_quantity_to_state, QuantityState.waiting_for_quantity)
     dp.callback_query.register(add_quantity, lambda c: c.data == "confirm")
     dp.callback_query.register(settings_handler, lambda c: c.data == "settings")
+    dp.callback_query.register(handle_change_date, lambda c: c.data == "change_date")

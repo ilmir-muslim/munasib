@@ -15,47 +15,23 @@
         <div class="col-md-4">
             <label for="id_start_date">С даты:</label>
             <input type="text" name="start_date" id="id_start_date" class="form-control datepicker" 
-                   placeholder="Выберите дату">
+            placeholder="{{ request.GET.start_date|default:'выберите дату' }}">
         </div>
         <!-- Поле для выбора конечной даты -->
         <div class="col-md-4">
             <label for="id_end_date">По дату:</label>
             <input type="text" name="end_date" id="id_end_date" class="form-control datepicker" 
-                   placeholder="Выберите дату">
-        </div>
-        <!-- Остальные фильтры -->
-        <div class="col-md-4">
-            {{ filter.form.as_p }}
+            placeholder="{{ request.GET.end_date|default:'выберите дату' }}" >
         </div>
     </div>
     <div class="mt-3">
         <button type="submit" class="btn btn-primary">Применить фильтры</button>
-        <!-- Кнопка сброса фильтров -->
-        <a href="{% url 'operation_log_list' %}" class="btn btn-secondary">Сбросить фильтры</a>
     </div>
 </form>
 
 <br>
 
-<!-- Отображение активных фильтров -->
-<div>
-    <h5>Активные фильтры:</h5>
-    <ul>
-        {% if request.GET.start_date %}
-            <li>С даты: {{ request.GET.start_date }}</li>
-        {% endif %}
-        {% if request.GET.end_date %}
-            <li>По дату: {{ request.GET.end_date }}</li>
-        {% endif %}
-        {% for field, value in request.GET.items %}
-            {% if value and not field in 'start_date,end_date' %}
-                <li>{{ filter.form|default_if_none:""|field_label:field }}: {{ value }}</li>
-            {% endif %}
-        {% endfor %}
-    </ul>
-</div>
 
-<br>
 <!-- Таблица -->
 {% render_table table %}
 
