@@ -1,8 +1,9 @@
 import asyncio
-from datetime import datetime
+from datetime import datetime, timedelta
 from aiogram import Dispatcher, types
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 from src.api_client import (
     check_worker_status,
@@ -23,6 +24,7 @@ from src.kbds.inline_kb import (
 
 class QuantityState(StatesGroup):
     waiting_for_quantity = State()
+    waiting_for_date = State()
 
 
 async def update_status(
@@ -68,6 +70,7 @@ async def update_status(
             "<b>дата записи</b>\n"
             f"<b>{selected_date}</b>"
         )
+
         kb = await main_menu()
 
         if new_msg:
@@ -184,16 +187,17 @@ async def settings_handler(callback_query: types.CallbackQuery):
 
 async def handle_change_date(callback_query: types.CallbackQuery, state: FSMContext):
     """Обработчик изменения даты."""
-    current_date = datetime.now().date()
+    kb = await choose_date()
+    await callback_query.message.edit_reply_markup(reply_markup=kb)
+    await state.set_state(QuantityState.waiting_for_date)
 
-    # Устанавливаем дату в state, если она еще не установлена
-    data = await state.get_data()
-    selected_date = data.get("selected_date", current_date)
 
-    keyboard = await choose_date(current_date, selected_date)
+async def handle_select_date(callback_query: types.CallbackQuery, state: FSMContext):
+    """Обработчик выбора даты."""
+    date = callback_query.data
+    await state.update_data({"selected_date": date})
+    await update_status(callback_query, state)
 
-    await state.update_data(selected_date=selected_date)
-    await callback_query.message.edit_reply_markup("Выберите дату", reply_markup=keyboard)
 
 async def handle_go_back(callback_query: types.CallbackQuery):
     """Возврат к окну статуса."""
@@ -222,4 +226,7 @@ def register_status(dp: Dispatcher):
     dp.message.register(save_quantity_to_state, QuantityState.waiting_for_quantity)
     dp.callback_query.register(add_quantity, lambda c: c.data == "confirm")
     dp.callback_query.register(settings_handler, lambda c: c.data == "settings")
-    dp.callback_query.register(handle_change_date, lambda c: c.data == "change_date")
+    dp.callback_query.register(
+        handle_change_date, lambda c: c.data.startswith("change_date")
+    )
+    dp.callback_query.register(handle_select_date, QuantityState.waiting_for_date)

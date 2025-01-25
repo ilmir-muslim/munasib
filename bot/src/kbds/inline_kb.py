@@ -1,3 +1,5 @@
+import calendar
+from datetime import datetime
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 from src.api_client import get_operation_list, get_positions, get_wokers_static_info
@@ -33,35 +35,42 @@ async def settings(user_id: int):
     #         InlineKeyboardButton(text="Добавить товар", callback_data="edit_goods")
     #     )  # TODO прописать кастомное меню, если будет время(заказчик не просил)
 
+    buttons.append(
+        InlineKeyboardButton(text="изменить дату", callback_data="change_date")
+    )
+    worker_name = worker["name"]
+    url = f"http://127.0.0.1:8000/worker_api/bot_operation_log/?start_date=&end_date=&operation=&worker={worker_name}"
+    buttons.append(InlineKeyboardButton(text="журнал операций", url=url))
+
     if edit_goods:
         buttons.append(
             InlineKeyboardButton(text="выбрать товар", callback_data="choose_goods")
         )
-        buttons.append(
-            InlineKeyboardButton(text="изменить дату", callback_data="change_date")
-        )
-        worker_name = worker["name"]
-        url = f"http://127.0.0.1:8000/worker_api/bot_operation_log/?start_date=&end_date=&operation=&worker={worker_name}"
-        buttons.append(
-            InlineKeyboardButton(text="журнал операций", url=url)
-        )
+
+    buttons.append(InlineKeyboardButton(text="назад", callback_data="go_back"))
 
     keyboard = InlineKeyboardMarkup(
-    inline_keyboard=[buttons[i : i + 2] for i in range(0, len(buttons), 2)]
+        inline_keyboard=[buttons[i : i + 2] for i in range(0, len(buttons), 2)]
     )
-    
+
     return keyboard
 
 
-async def choose_date(current_date, selected_date):
+async def choose_date():
+    current_date = datetime.now()
+    year = current_date.year
+    month = current_date.month
+    days_in_month = calendar.monthrange(current_date.year, current_date.month)[1]
+
     buttons = [
-        [InlineKeyboardButton(text="-1 день", callback_data="change_date:-1")]
+        InlineKeyboardButton(text=str(day), callback_data=f"{year}-{month:02d}-{day:02d}")
+        for day in range(1, days_in_month + 1)
     ]
-    if selected_date < current_date:
-        buttons.append(
-            [InlineKeyboardButton(text="+1 день", callback_data="change_date:+1")]
-        )
-    keyboard = InlineKeyboardMarkup(inline_keyboard=buttons)
+    buttons.append(InlineKeyboardButton(text="назад", callback_data="go_back"))
+    keyboard = InlineKeyboardMarkup(
+        inline_keyboard=[buttons[i : i + 5] for i in range(0, len(buttons), 5)]
+    )
+
     return keyboard
 
 
