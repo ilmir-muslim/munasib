@@ -82,11 +82,16 @@ async def save_quantity_to_state(message: types.Message, state: FSMContext):
 async def add_quantity(callback_query: types.CallbackQuery, state: FSMContext):
     state_data = await state.get_data()
     print(f"str state_data 127 {state_data}")
-
-    quantity = state_data["quantity"]
-
+    await state.update_data(state_data)
+    
     try:
-        quantity = int(quantity)
+        if "quantity" not in state_data:
+            await ask_quantity(callback_query, state)
+            quantity = state_data["quantity"]
+            quantity = int(quantity)
+        else:
+            quantity = state_data["quantity"]
+            quantity = int(quantity)
     except ValueError:
         await callback_query.message.reply(
             "Пожалуйста, введите корректное числовое значение."
@@ -203,6 +208,7 @@ async def update_status(
             user_id=user_id,
             selected_item=selected_item,
         )
+        await state.update_data({"final_output": final_output})
 
         kb = await main_menu()
 
@@ -214,7 +220,6 @@ async def update_status(
             await callback_query.message.edit_text(
                 text=final_output, reply_markup=kb, parse_mode="HTML"
             )
-
     except Exception as e:
         print(f"Error updating status: {e}")
 
@@ -222,16 +227,18 @@ async def update_status(
 async def status_window(callback_query: types.CallbackQuery, state: FSMContext):
     while True:
         try:
-            await update_status(callback_query, state)
+            await callback_query.message.delete()
+            await update_status(callback_query, state, new_msg=True)
             await asyncio.sleep(600)
         except Exception as e:
             print(f"Error during status window: {e}")
 
 
-async def handle_go_back(callback_query: types.CallbackQuery):
+
+async def handle_go_back(callback_query: types.CallbackQuery, state: FSMContext):
     """Возврат к окну статуса."""
-    kb = await main_menu()
-    await callback_query.message.edit_reply_markup(reply_markup=kb)
+    await callback_query.message.delete()
+    await update_status(callback_query, state, new_msg=True)
 
 
 async def end_work(callback_query: types.CallbackQuery, state: FSMContext):
