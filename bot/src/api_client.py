@@ -1,3 +1,4 @@
+
 import aiohttp
 
 from src.utils.cache_manager import CacheManager
@@ -5,22 +6,20 @@ from src.utils.cache_manager import CacheManager
 
 async def check_user_exists(user_id: int) -> bool:
     async with aiohttp.ClientSession() as session:
-        async with session.get(
-            f"http://127.0.0.1:8000/worker_api/check_telegram_id/{user_id}/"
-        ) as response:
+        async with session.get(f"http://127.0.0.1:8000/worker_api/check_telegram_id/{user_id}/") as response:
+            print(f"Response status: {response.status}")
             if response.status == 200:
                 data = await response.json()
                 return data.get("exists", False)
             return False
+        print(f"Failed to check user with id {user_id}")
 
 
 async def register_user(name: str, position_id: int, telegram_id: int):
     async with aiohttp.ClientSession() as session:
         payload = {"name": name, "position_id": position_id, "telegram_id": telegram_id}
         print(payload)
-        async with session.post(
-            "http://127.0.0.1:8000/worker_api/register_user/", json=payload
-        ) as response:
+        async with session.post("http://127.0.0.1:8000/worker_api/register_user/", json=payload) as response:
             if response.status == 201:
                 data = await response.json()
                 return data
@@ -36,9 +35,7 @@ async def get_positions() -> list:
         return cached_data
 
     async with aiohttp.ClientSession() as session:
-        async with session.get(
-            "http://127.0.0.1:8000/worker_api/positions/"
-        ) as response:
+        async with session.get("http://127.0.0.1:8000/worker_api/positions/") as response:
             if response.status == 200:
                 data = await response.json()
                 positions = [
@@ -59,9 +56,7 @@ async def get_positions() -> list:
 
 async def check_admins_rights(user_id: int) -> bool:
     async with aiohttp.ClientSession() as session:
-        async with session.get(
-            f"http://127.0.0.1:8000/worker_api/check_admins_rights/{user_id}/"
-        ) as response:
+        async with session.get(f"http://127.0.0.1:8000/worker_api/check_admins_rights/{user_id}/") as response:
             if response.status == 200:
                 data = await response.json()
                 return data.get("admins_rights", False)
@@ -82,9 +77,7 @@ async def get_wokers_static_info(user_id) -> list:
         return [user_data]
 
     async with aiohttp.ClientSession() as session:
-        async with session.get(
-            f"http://127.0.0.1:8000/worker_api/workers_static_info/{user_id}/"
-        ) as response:
+        async with session.get(f"http://127.0.0.1:8000/worker_api/workers_static_info/{user_id}/") as response:
             if response.status == 200:
                 data = await response.json()
                 workers_static_info = [
@@ -95,7 +88,6 @@ async def get_wokers_static_info(user_id) -> list:
                         "position": item["position"],
                         "admin_rights": item["admin_rights"],
                         "edit_goods": item["edit_goods"],
-                        # "edit_goods_custom_version": item["edit_goods_custom_version"],
                     }
                     for item in data.get("workers", [])
                 ]
@@ -121,9 +113,7 @@ async def get_wokers_static_info(user_id) -> list:
 
 async def check_worker_status(user_id: int) -> str:
     async with aiohttp.ClientSession() as session:
-        async with session.get(
-            f"http://127.0.0.1:8000/worker_api/status_window/{user_id}/"
-        ) as response:
+        async with session.get(f"http://127.0.0.1:8000/worker_api/status_window/{user_id}/") as response:
             if response.status == 200:
                 data = await response.json()
                 user_status = data.get("user_status", {})  # Извлекаем вложенный словарь
@@ -136,9 +126,7 @@ async def check_worker_status(user_id: int) -> str:
 
 async def works_done_today(user_id: int) -> str:
     async with aiohttp.ClientSession() as session:
-        async with session.get(
-            f"http://127.0.0.1:8000/worker_api/works_done_today/{user_id}/"
-        ) as response:
+        async with session.get(f"http://127.0.0.1:8000/worker_api/works_done_today/{user_id}/") as response:
             if response.status == 200:
                 data = await response.json()
                 operation_sums = {}
@@ -173,13 +161,16 @@ async def get_operation_list():
         return cached_data
 
     async with aiohttp.ClientSession() as session:
-        async with session.get(
-            "http://127.0.0.1:8000/worker_api/operations/"
-        ) as response:
+        async with session.get("http://127.0.0.1:8000/worker_api/operations/") as response:
             if response.status == 200:
                 data = await response.json()
                 operations = [
-                    {"id": op["id"], "name": op["name"], "price": op["price"]}
+                    {
+                        "id": op["id"],
+                        "name": op["name"],
+                        "price": op["price"],
+                        "add_goods": op["add_goods"],
+                    }
                     for op in data.get("operations", [])
                 ]
                 CacheManager.write_cache(cache_name, operations)  # Сохранение в кэш
@@ -192,9 +183,7 @@ async def get_operation_list():
 
 async def get_default_operation(user_id: int) -> dict | None:
     async with aiohttp.ClientSession() as session:
-        async with session.get(
-            f"http://127.0.0.1:8000/worker_api/status_window/{user_id}/"
-        ) as response:
+        async with session.get(f"http://127.0.0.1:8000/worker_api/status_window/{user_id}/") as response:
             if response.status != 200:
                 return None
 
@@ -221,23 +210,6 @@ async def get_default_operation(user_id: int) -> dict | None:
     return operation
 
 
-async def record_operation(telegram_id: int, operation_id: int, quantity: int) -> dict:
-    """Отправка данных о выполненной операции."""
-    async with aiohttp.ClientSession() as session:
-        payload = {
-            "telegram_id": telegram_id,
-            "operation_id": operation_id,
-            "quantity": quantity,
-        }
-        async with session.post(
-            "http://127.0.0.1:8000/worker_api/record_operation/", json=payload
-        ) as response:
-            if response.status == 201:
-                return {"success": True, "message": "Operation successfully recorded."}
-            error_message = await response.json()
-            return {"success": False, "error": error_message.get("error")}
-
-
 async def get_goods_list():
     cache_name = "goods_cache"
     cached_data = CacheManager.read_cache(cache_name)
@@ -247,9 +219,7 @@ async def get_goods_list():
         return cached_data
 
     async with aiohttp.ClientSession() as session:
-        async with session.get(
-            "http://127.0.0.1:8000/worker_api/goods_list/"
-        ) as response:
+        async with session.get("http://127.0.0.1:8000/worker_api/goods_list/") as response:
             if response.status == 200:
                 data = await response.json()
                 goods = [
@@ -257,3 +227,23 @@ async def get_goods_list():
                     for good in data.get("goods", [])
                 ]
                 CacheManager.write_cache(cache_name, goods)
+
+async def record_operation(telegram_id: int, operation_id: int, quantity: int, date, goods_id: int = None) -> dict:
+    """Отправка данных о выполненной операции."""
+    async with aiohttp.ClientSession() as session:
+        payload = {
+            "telegram_id": telegram_id,
+            "operation_id": operation_id,
+            "quantity": quantity,
+            "date": date,
+            "goods_id": goods_id,
+        }
+        print(f"Payload: {payload}")
+        async with session.post("http://127.0.0.1:8000/worker_api/record_operation/", json=payload) as response:
+            if response.status == 201:
+                return {"success": True, "message": "Operation successfully recorded."}
+            try:
+                error_message = await response.json()
+            except aiohttp.ContentTypeError:
+                error_message = await response.text()
+            return {"success": False, "error": error_message}

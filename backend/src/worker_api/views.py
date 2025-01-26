@@ -1,75 +1,26 @@
 import logging
 
-from django.db.models import Sum
 from django.utils.timezone import now
 from rest_framework import status
-from rest_framework.exceptions import NotFound
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from admins_panel.models import Goods, Operation, OperationLog, Position, Worker
+from admins_panel.models import (
+    Goods,
+    Operation,
+    OperationLog,
+    Position,
+    Worker,
+)
 from admins_panel.views import OperationLogListView
 from worker_api.serializers import PositionSerializer
 
 logger = logging.getLogger("custom_logger")
 
 
-class RecordOperationView(APIView):
-    permission_classes = [AllowAny]  # Позволяет доступ без авторизации
-
-    def post(self, request, *args, **kwargs):
-        # Извлечение данных из запроса
-        telegram_id = request.data.get("telegram_id")
-        operation_id = request.data.get("operation_id")
-        quantity = request.data.get("quantity")
-
-        # Валидация входных данных
-        if not all([telegram_id, operation_id, quantity]):
-            return Response(
-                {"error": "worker_id, operation_id, and quantity are required."},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-
-        try:
-            quantity = int(quantity)
-            if quantity <= 0:
-                raise ValueError
-        except ValueError:
-            return Response(
-                {"error": "quantity must be a positive integer."},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-
-        # Проверка существования работника и операции
-        try:
-            worker = Worker.objects.get(telegram_id=telegram_id)
-        except Worker.DoesNotExist as exc:
-            raise NotFound(
-                {"error": f"Worker with id {telegram_id} not found."}
-            ) from exc
-
-        try:
-            operation = Operation.objects.get(id=operation_id)
-        except Operation.DoesNotExist as exc:
-            raise NotFound(
-                {"error": f"Operation with id {operation_id} not found."}
-            ) from exc
-
-        # Создание записи OperationLog
-        OperationLog.objects.create(
-            worker=worker, operation=operation, quantity=quantity
-        )
-
-        # Ответ пользователю
-        return Response(
-            {"message": "Operation successfully recorded."},
-            status=status.HTTP_201_CREATED,
-        )
-
-
 class CheckTelegramIdView(APIView):
-    permission_classes = [AllowAny]  # Позволяет доступ без авторизации
+    permission_classes = [AllowAny]
 
     def get(self, request, telegram_id):
         try:
@@ -80,7 +31,7 @@ class CheckTelegramIdView(APIView):
 
 
 class RegisterNewUserView(APIView):
-    permission_classes = [AllowAny]  # Позволяет доступ без авторизации
+    permission_classes = [AllowAny]
 
     def post(self, request):
         # Извлечение данных из запроса
@@ -108,7 +59,7 @@ class RegisterNewUserView(APIView):
 
 
 class CheckAdminsRightsView(APIView):
-    permission_classes = [AllowAny]  # Позволяет доступ без авторизации
+    permission_classes = [AllowAny]
 
     def get(self, request, telegram_id):
         try:
@@ -122,7 +73,7 @@ class CheckAdminsRightsView(APIView):
 
 
 class Positions(APIView):
-    permission_classes = [AllowAny]  # Позволяет доступ без авторизации
+    permission_classes = [AllowAny]
 
     def get(self, request):
         logger.info("Fetching positions from database")
@@ -134,7 +85,7 @@ class Positions(APIView):
 
 
 class StatusWindowView(APIView):
-    permission_classes = [AllowAny]  # Позволяет доступ без авторизации
+    permission_classes = [AllowAny]
 
     def get(self, request, telegram_id):
         try:
@@ -203,7 +154,6 @@ class WorkersStaticInfo(APIView):
                         "position": worker.position.name,
                         "admin_rights": worker.position.admins_rights,
                         "edit_goods": worker.position.edit_goods,
-                        # "edit_goods_custom_version": worker.position.edit_goods_custom_version,
                     }
                     for worker in workers
                 ]
@@ -223,6 +173,7 @@ class OperationList(APIView):
                         "id": operation.id,
                         "name": operation.name,
                         "price": operation.price,
+                        "add_goods": operation.add_goods,
                     }
                     for operation in operations
                 ]
@@ -244,6 +195,7 @@ class GoodsList(APIView):
             }
         )
 
+
 class BotOperationLogListView(OperationLogListView):
     template_name = "worker_api/bot_operation_log.html"
 
@@ -252,3 +204,35 @@ class BotOperationLogListView(OperationLogListView):
         # Добавить любой специфичный контекст для бота, если нужно
         context["restricted_access"] = True
         return context
+
+
+class RecordOperationView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request, *args, **kwargs):
+        # Извлечение данных из запроса
+        telegram_id = request.data.get("telegram_id")
+        operation_id = request.data.get("operation_id")
+        quantity = request.data.get("quantity")
+        date = request.data.get("date")
+        goods_id = request.data.get("goods_id")
+
+        # Валидация входных данных
+        if not all([telegram_id, operation_id, quantity]):
+            return Response(
+                {"error": "worker_id, operation_id, and quantity are required."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        quantity = int(quantity)
+        worker = Worker.objects.get(telegram_id=telegram_id)
+        operation = Operation.objects.get(id=operation_id)
+        goods = Goods.objects.get(id=goods_id)
+        # Создание записи OperationLog
+        OperationLog.objects.create(
+            worker=worker, operation=operation, goods=goods, quantity=quantity, date=date
+        )
+        # Ответ пользователю
+        return Response(
+            {"message": "Operation successfully recorded."},
+            status=status.HTTP_201_CREATED,
+        )

@@ -15,7 +15,6 @@ from .views import (
 
 
 urlpatterns = [
-    path("record_operation/", RecordOperationView.as_view(), name="record_operation"),
     path(
         "check_telegram_id/<int:telegram_id>/",
         CheckTelegramIdView.as_view(),
@@ -46,4 +45,5 @@ urlpatterns = [
     ),
     path("goods_list/", GoodsList.as_view(), name="goods_list"),
     path("bot_operation_log/", BotOperationLogListView.as_view(), name="bot_operation_log"),
+    path("record_operation/", RecordOperationView.as_view(), name="record_operation"),
 ]

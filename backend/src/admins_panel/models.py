@@ -7,6 +7,8 @@ from django.utils.timezone import now
 class Operation(models.Model):
     name = models.CharField("Операции", max_length=50)
     price = models.FloatField("Цена операции")
+    add_goods = models.BooleanField("Добавление товара", default=False)
+
 
     class Meta:
         verbose_name = "Операция"
@@ -24,8 +26,6 @@ class Position(models.Model):
     admins_rights = models.BooleanField("Права админа", default=False)
     edit_goods = models.BooleanField("Права на редактирование товаров", default=False)
     # edit_goods_custom_version = models.BooleanField("Права на редактирование товаров, расширенная версия", default=False, null=True, blank=True)
-
-
 
     class Meta:
         verbose_name = "Должность"
@@ -71,6 +71,13 @@ class OperationLog(models.Model):
     operation = models.ForeignKey(Operation, on_delete=models.CASCADE)
     date = models.DateTimeField("Дата выполнения работ", default=now)
     quantity = models.IntegerField("Количество выполненных работ")
+    goods = models.ForeignKey(  # Ссылка на существующий товар
+        "Goods",
+        on_delete=models.CASCADE,
+        verbose_name="Товар",
+        null=True,
+        blank=True,  # Если операция не связана с товаром
+    )
 
     class Meta:
         verbose_name = "Выполненная работа"
@@ -90,10 +97,6 @@ def update_worker_salary(sender, instance, created, **kwargs):
 class Goods(models.Model):
     name = models.CharField("Товар", max_length=50)
     price = models.FloatField("Цена товара")
-    color = models.CharField("Цвет товара", max_length=50, null=True, blank=True)
-    size = models.CharField("Размер товара", max_length=50, null=True, blank=True)
-    quantity = models.IntegerField("Количество товара")
-    release_date = models.DateField("Дата выпуска товара", default=now)
 
     class Meta:
         verbose_name = "Товар"
@@ -101,3 +104,20 @@ class Goods(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class GoodsLog(models.Model):
+    worker = models.ForeignKey(
+        Worker, on_delete=models.SET_DEFAULT, default=Worker.get_deleted_worker
+    )
+    goods = models.ForeignKey(Goods, on_delete=models.CASCADE)
+    quantity = models.IntegerField("Количество товара")
+    release_date = models.DateField("Дата выпуска товара", default=now)
+    selling_date = models.DateField("Дата продажи товара", null=True, blank=True)
+
+    class Meta:
+        verbose_name = "Выпущенный товар"
+        verbose_name_plural = "Выпущенные товары"
+
+    def __str__(self):
+        return f"Товар: {self.goods.name}, выпустил: {self.worker.name}"

@@ -2,7 +2,28 @@ import calendar
 from datetime import datetime
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from src.api_client import get_operation_list, get_positions, get_wokers_static_info
+from src.api_client import (
+    get_goods_list,
+    get_operation_list,
+    get_positions,
+    get_wokers_static_info,
+)
+
+
+async def main_menu():
+    """Генерация клавиатуры первого уровня меню."""
+    # Создаём список кнопок
+    buttons = [
+        InlineKeyboardButton(text="Настройки", callback_data="settings"),
+        InlineKeyboardButton(text="Внести количество", callback_data="add_quantity"),
+        InlineKeyboardButton(text="Завершение работы", callback_data="end_work"),
+    ]
+
+    # Создаём клавиатуру с row_width=3
+    keyboard = InlineKeyboardMarkup(
+        inline_keyboard=[buttons[i : i + 2] for i in range(0, len(buttons), 2)]
+    )
+    return keyboard
 
 
 async def position_keyboard():
@@ -63,7 +84,9 @@ async def choose_date():
     days_in_month = calendar.monthrange(current_date.year, current_date.month)[1]
 
     buttons = [
-        InlineKeyboardButton(text=str(day), callback_data=f"{year}-{month:02d}-{day:02d}")
+        InlineKeyboardButton(
+            text=str(day), callback_data=f"{year}-{month:02d}-{day:02d}"
+        )
         for day in range(1, days_in_month + 1)
     ]
     buttons.append(InlineKeyboardButton(text="назад", callback_data="go_back"))
@@ -71,22 +94,6 @@ async def choose_date():
         inline_keyboard=[buttons[i : i + 5] for i in range(0, len(buttons), 5)]
     )
 
-    return keyboard
-
-
-async def main_menu():
-    """Генерация клавиатуры первого уровня меню."""
-    # Создаём список кнопок
-    buttons = [
-        InlineKeyboardButton(text="Настройки", callback_data="settings"),
-        InlineKeyboardButton(text="Внести количество", callback_data="add_quantity"),
-        InlineKeyboardButton(text="Завершение работы", callback_data="end_work"),
-    ]
-
-    # Создаём клавиатуру с row_width=3
-    keyboard = InlineKeyboardMarkup(
-        inline_keyboard=[buttons[i : i + 2] for i in range(0, len(buttons), 2)]
-    )
     return keyboard
 
 
@@ -106,6 +113,17 @@ async def change_operation():
     return keyboard
 
 
+async def choose_goods():
+    goods_list = await get_goods_list()
+    buttons = [
+        InlineKeyboardButton(text=goods["name"], callback_data=str(goods["id"]))
+        for goods in goods_list
+    ]
+    inline_keyboard = [buttons[i : i + 2] for i in range(0, len(buttons), 2)]
+    return InlineKeyboardMarkup(inline_keyboard=inline_keyboard)
+
+
 async def confirm_quantity():
-    button = [[InlineKeyboardButton(text="подтвердить", callback_data="confirm")]]
-    return InlineKeyboardMarkup(inline_keyboard=button)
+    buttons = [[InlineKeyboardButton(text="подтвердить", callback_data="confirm")]]
+    buttons.append([InlineKeyboardButton(text="назад", callback_data="go_back")])
+    return InlineKeyboardMarkup(inline_keyboard=buttons)
