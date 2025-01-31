@@ -41,20 +41,15 @@ async def start_work_button():
     return InlineKeyboardMarkup(inline_keyboard=button)
 
 
-async def settings(user_id: int):
+async def settings(user_id, add_goods=False):
     buttons = [
         InlineKeyboardButton(text="Сменить операцию", callback_data="change_operation"),
     ]
     workers_data = await get_wokers_static_info(user_id)
     worker = next((w for w in workers_data if w["telegram_id"] == user_id), None)
-    # edit_goods_custom_version = worker["edit_goods_custom_version"]
     print(f"Worker str 26: {worker}")
-    edit_goods = worker["edit_goods"]
-    print(f"edit_goods str 29: {edit_goods}")
-    # if edit_goods_custom_version:
-    #     buttons.append(
-    #         InlineKeyboardButton(text="Добавить товар", callback_data="edit_goods")
-    #     )  # TODO прописать кастомное меню, если будет время(заказчик не просил)
+
+
 
     buttons.append(
         InlineKeyboardButton(text="изменить дату", callback_data="change_date")
@@ -63,7 +58,7 @@ async def settings(user_id: int):
     url = f"http://127.0.0.1:8000/worker_api/bot_operation_log/?start_date=&end_date=&operation=&worker={worker_name}"
     buttons.append(InlineKeyboardButton(text="журнал операций", url=url))
 
-    if edit_goods:
+    if add_goods:
         buttons.append(
             InlineKeyboardButton(text="выбрать товар", callback_data="choose_goods")
         )

@@ -24,8 +24,7 @@ class Position(models.Model):
         Operation, on_delete=models.SET_NULL, null=True, blank=True
     )
     admins_rights = models.BooleanField("Права админа", default=False)
-    edit_goods = models.BooleanField("Права на редактирование товаров", default=False)
-    # edit_goods_custom_version = models.BooleanField("Права на редактирование товаров, расширенная версия", default=False, null=True, blank=True)
+
 
     class Meta:
         verbose_name = "Должность"

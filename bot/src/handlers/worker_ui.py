@@ -142,10 +142,12 @@ async def add_quantity(callback_query: types.CallbackQuery, state: FSMContext):
     await update_status(callback_query, state, new_msg=True)
 
 
-async def settings_handler(callback_query: types.CallbackQuery):
+async def settings_handler(callback_query: types.CallbackQuery, state: FSMContext):
     """Обработчик настроек."""
     user_id = callback_query.from_user.id
-    kb = await settings(user_id)
+    state_data = await state.get_data()
+    add_goods = state_data.get("add_goods", False)
+    kb = await settings(user_id, add_goods)
     await callback_query.message.edit_reply_markup(reply_markup=kb)
 
 
@@ -170,6 +172,7 @@ async def handle_change_good(callback_query: types.CallbackQuery):
     kb = await choose_goods()
     await callback_query.message.edit_reply_markup(reply_markup=kb)
 
+
 async def handle_select_good(callback_query: types.CallbackQuery, state: FSMContext):
     """Обработчик выбора товара."""
     good_id = callback_query.data
@@ -193,6 +196,7 @@ async def handle_select_good(callback_query: types.CallbackQuery, state: FSMCont
     except Exception as e:
         print(f"Error handling operation selection: {e}")
 
+
 async def update_status(
     callback_query: types.CallbackQuery, state: FSMContext, new_msg=False, date=None
 ):
@@ -206,21 +210,14 @@ async def update_status(
         status = await check_worker_status(user_id)
         works_done = await works_done_today(user_id)
         state_data = await state.get_data()
+        operations = await get_operation_list()
+        goods_list = await get_goods_list()
 
         selected_operation = state_data.get("selected_operation", None)
         selected_date = state_data.get("selected_date", date)
-        goods_list = await get_goods_list()
         print(f"Goods list строка 186: {goods_list}")  # DEBUG
         selected_good = state_data.get("selected_good", None)
 
-        if selected_good is None:
-            selected_good_name = goods_list[0]["name"]
-            good_id = goods_list[0]["id"]
-            await state.update_data({"good_id": good_id})
-        else:
-            selected_good_name = selected_good["name"]
-            good_id = selected_good["id"]
-            await state.update_data({"good_id": good_id})
 
         if not selected_operation:
             # Получение операции по умолчанию
@@ -235,7 +232,6 @@ async def update_status(
             worker_static_info = worker_data[0]
 
             default_operation_id = worker_static_info["default_operation"]
-            operations = await get_operation_list()
 
             if not isinstance(operations, list):
                 raise TypeError(
@@ -261,7 +257,6 @@ async def update_status(
                 raise ValueError(
                     f"Ошибка: операция с ID {default_operation_id} не найдена"
                 )
-
         else:
             # Получаем данные из состояния
             current_operation_name = selected_operation["name"]
@@ -271,17 +266,32 @@ async def update_status(
             current_operation_name = selected_operation["name"]
         else:
             current_operation_name = "Операция не выбрана"
-
         
-            
-        final_output = await status_message(
-            status=status,
-            current_operation_name=current_operation_name,
-            works_done=works_done,
-            selected_date=selected_date,
-            user_id=user_id,
-            selected_good_name=selected_good_name,
-        )
+        add_goods = selected_operation["add_goods"]
+        await state.update_data({"add_goods": add_goods})
+        if add_goods:
+            if selected_good is None:
+                selected_good_name = goods_list[0]["name"]
+                good_id = goods_list[0]["id"]
+                await state.update_data({"good_id": good_id})
+            else:
+                selected_good_name = selected_good["name"]
+                good_id = selected_good["id"]
+                await state.update_data({"good_id": good_id})
+        else:
+            selected_good_name = None
+
+        status_message_args = {
+            "status": status,
+            "current_operation_name": current_operation_name,
+            "works_done": works_done,
+            "selected_date": selected_date,
+            "add_goods": add_goods,
+        }
+        if selected_good_name is not None:
+            status_message_args["selected_good_name"] = selected_good_name
+
+        final_output = await status_message(**status_message_args)
         print(f"Final output строка 273: {final_output}")  # DEBUG
         await state.update_data({"final_output": final_output})
 
@@ -300,9 +310,9 @@ async def update_status(
 
 
 async def status_window(callback_query: types.CallbackQuery, state: FSMContext):
+    await callback_query.message.delete()
     while True:
         try:
-            await callback_query.message.delete()
             await update_status(callback_query, state, new_msg=True)
             await asyncio.sleep(600)
         except Exception as e:
@@ -328,7 +338,9 @@ def register_status(dp: Dispatcher):
     dp.callback_query.register(
         handle_change_operation, lambda c: c.data == "change_operation"
     )
-    dp.callback_query.register(handle_operation_selection, lambda c: c.data.startswith("operation_"))
+    dp.callback_query.register(
+        handle_operation_selection, lambda c: c.data.startswith("operation_")
+    )
     dp.callback_query.register(handle_go_back, lambda c: c.data == "go_back")
     dp.callback_query.register(end_work, lambda c: c.data == "end_work")
     dp.callback_query.register(ask_quantity, lambda c: c.data == "add_quantity")
