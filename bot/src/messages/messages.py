@@ -1,7 +1,7 @@
 from src.api_client import get_wokers_static_info
 
 
-async def status_message(status, current_operation_name, works_done, selected_date, user_id,selected_item=None):
+async def status_message(status, current_operation_name, works_done, selected_date, user_id,selected_good_name=None):
     workers_data = await get_wokers_static_info(user_id)
     worker = next((w for w in workers_data if w["telegram_id"] == user_id), None)
     edit_goods = worker["edit_goods"]
@@ -15,7 +15,7 @@ async def status_message(status, current_operation_name, works_done, selected_da
         "<b>📋 Сделано операций за сегодня:</b>\n"
         f"<b>{works_done}</b>\n\n"
         "<b>📦 Выбранный товар:</b>\n"
-        f"<b>{selected_item}</b>\n\n"
+        f"<b>{selected_good_name}</b>\n\n"
         "<b>дата записи</b>\n"
         f"<b>{selected_date}</b>"
             )

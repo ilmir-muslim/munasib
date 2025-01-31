@@ -100,7 +100,7 @@ async def choose_date():
 async def change_operation():
     operations = await get_operation_list()
     buttons = [
-        InlineKeyboardButton(text=operation["name"], callback_data=str(operation["id"]))
+        InlineKeyboardButton(text=operation["name"], callback_data=f"operation_{operation["id"]}")
         for operation in operations
     ]
     inline_keyboard = [buttons[i : i + 2] for i in range(0, len(buttons), 2)]
@@ -116,10 +116,16 @@ async def change_operation():
 async def choose_goods():
     goods_list = await get_goods_list()
     buttons = [
-        InlineKeyboardButton(text=goods["name"], callback_data=str(goods["id"]))
+        InlineKeyboardButton(text=goods["name"], callback_data=f"good_ {goods["id"]}")
         for goods in goods_list
     ]
+
     inline_keyboard = [buttons[i : i + 2] for i in range(0, len(buttons), 2)]
+
+    inline_keyboard.append(
+        [InlineKeyboardButton(text="Назад", callback_data="go_back")]
+    )
+    
     return InlineKeyboardMarkup(inline_keyboard=inline_keyboard)
 
 

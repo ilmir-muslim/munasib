@@ -1,4 +1,3 @@
-
 import aiohttp
 
 from src.utils.cache_manager import CacheManager
@@ -88,6 +87,7 @@ async def get_wokers_static_info(user_id) -> list:
                         "position": item["position"],
                         "admin_rights": item["admin_rights"],
                         "edit_goods": item["edit_goods"],
+                        "default_operation": item["default_operation"],
                     }
                     for item in data.get("workers", [])
                 ]
@@ -180,34 +180,6 @@ async def get_operation_list():
                 return operations
             return []
 
-
-async def get_default_operation(user_id: int) -> dict | None:
-    async with aiohttp.ClientSession() as session:
-        async with session.get(f"http://127.0.0.1:8000/worker_api/status_window/{user_id}/") as response:
-            if response.status != 200:
-                return None
-
-            data = await response.json()
-            user_status = data.get("user_status", {})
-            position_name = user_status.get("должность")
-            if not position_name:
-                return None
-
-    positions = await get_positions()
-    print(f"Positions: {positions}")  # Отладочное сообщение
-    operations = await get_operation_list()
-    print(f"Operations: {operations}")  # Отладочное сообщение
-
-    position = next((pos for pos in positions if pos["name"] == position_name), None)
-    if not position:
-        return None
-
-    default_operation_id = position["default_operation"]
-    operation = next(
-        (op for op in operations if op["id"] == default_operation_id), None
-    )
-    print(f"Default operation: {operation}")  # Отладочное сообщение
-    return operation
 
 
 async def get_goods_list():
