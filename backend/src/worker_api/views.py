@@ -153,7 +153,6 @@ class WorkersStaticInfo(APIView):
                         "name": worker.name,
                         "position": worker.position.name,
                         "admin_rights": worker.position.admins_rights,
-                        "edit_goods": worker.position.edit_goods,
                         "default_operation": worker.position.default_operation.id,
                     }
                     for worker in workers
@@ -208,15 +207,15 @@ class BotOperationLogListView(OperationLogListView):
 
 
 class RecordOperationView(APIView):
-    permission_classes = [AllowAny]
 
+    permission_classes = [AllowAny]
     def post(self, request, *args, **kwargs):
         # Извлечение данных из запроса
         telegram_id = request.data.get("telegram_id")
         operation_id = request.data.get("operation_id")
         quantity = request.data.get("quantity")
         date = request.data.get("date")
-        goods_id = request.data.get("goods_id")
+        goods_id = request.data.get("goods_id", None)
 
         # Валидация входных данных
         if not all([telegram_id, operation_id, quantity]):
@@ -227,7 +226,18 @@ class RecordOperationView(APIView):
         quantity = int(quantity)
         worker = Worker.objects.get(telegram_id=telegram_id)
         operation = Operation.objects.get(id=operation_id)
-        goods = Goods.objects.get(id=goods_id)
+        
+         # Обработка goods_id только если он передан и не равен None
+        goods = None
+        if goods_id is not None:  # Проверяем, что goods_id не None
+            try:
+                goods = Goods.objects.get(id=goods_id)
+            except Goods.DoesNotExist:
+                return Response(
+                    {"error": "Goods with the provided ID does not exist."},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
         # Создание записи OperationLog
         OperationLog.objects.create(
             worker=worker, operation=operation, goods=goods, quantity=quantity, date=date

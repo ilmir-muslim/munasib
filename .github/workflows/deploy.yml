@@ -1,0 +1,56 @@
+name: Deploy Munasib
+
+on:
+  push:
+    branches:
+      - main  # Запускать только при пуше в ветку main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Шаг 1: Получить код из репозитория
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Шаг 2: Настройка Python
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12.7'  # Укажите вашу версию Python
+
+      # Шаг 3: Установка зависимостей для Django
+      - name: Install Django dependencies
+        working-directory: ./backend
+        run: |
+          source backend_venv/bin/activate
+          pip install -r requirements.txt
+
+      # Шаг 4: Запуск тестов для Django (если есть)
+      - name: Run Django tests
+        working-directory: ./backend
+        run: |
+          source backend_/bin/activate
+          python manage.py test
+
+      # Шаг 5: Установка зависимостей для бота
+      - name: Install Bot dependencies
+        working-directory: ./bot
+        run: |
+          python -m venv venv
+          source bot_venv/bin/activate
+          pip install -r requirements.txt
+
+      # Шаг 6: Деплой на сервер
+      - name: Deploy to server
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SERVER_IP: ${{ secrets.SERVER_IP }}
+          SERVER_USER: ${{ secrets.SERVER_USER }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H $SERVER_IP >> ~/.ssh/known_hosts
+          ssh $SERVER_USER@$SERVER_IP "cd /path/to/munasib && git pull origin main && cd backend && source venv/bin/activate && pip install -r requirements.txt && python manage.py migrate && python manage.py collectstatic --noinput && cd ../bot && source venv/bin/activate && pip install -r requirements.txt && pkill -f bot.py && nohup python bot.py > bot.log 2>&1 &"

@@ -13,11 +13,6 @@ from src.handlers.start_handler import register_start
 from src.handlers.worker_ui import register_status
 
 
-
-
-
-
-
 # Загрузка переменных окружения
 load_dotenv(find_dotenv())
 

@@ -111,12 +111,9 @@ async def add_quantity(callback_query: types.CallbackQuery, state: FSMContext):
         return
     current_date = datetime.now().date()
     date = state_data.get("selected_date", current_date.isoformat())
+    add_goods = state_data["selected_operation"]["add_goods"]
 
-    workers_data = await get_wokers_static_info(telegram_id)
-    worker = next((w for w in workers_data if w["telegram_id"] == telegram_id), None)
-    edit_goods = worker["edit_goods"]
-
-    if edit_goods:
+    if add_goods:
         # Записываем операцию
         good_id = state_data.get("good_id", None)
         await record_operation(

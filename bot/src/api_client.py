@@ -86,7 +86,6 @@ async def get_wokers_static_info(user_id) -> list:
                         "name": item["name"],
                         "position": item["position"],
                         "admin_rights": item["admin_rights"],
-                        "edit_goods": item["edit_goods"],
                         "default_operation": item["default_operation"],
                     }
                     for item in data.get("workers", [])
@@ -208,9 +207,11 @@ async def record_operation(telegram_id: int, operation_id: int, quantity: int, d
             "operation_id": operation_id,
             "quantity": quantity,
             "date": date,
-            "goods_id": goods_id,
         }
-        print(f"Payload: {payload}")
+        if goods_id is not None:
+            payload["goods_id"] = goods_id
+            
+        print(f"Payload 204: {payload}")
         async with session.post("http://127.0.0.1:8000/worker_api/record_operation/", json=payload) as response:
             if response.status == 201:
                 return {"success": True, "message": "Operation successfully recorded."}
