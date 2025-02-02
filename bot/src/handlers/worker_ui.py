@@ -23,8 +23,6 @@ from src.kbds.inline_kb import (
 )
 from src.messages.messages import status_message
 
-import logging
-
 
 class QuantityState(StatesGroup):
     waiting_for_quantity = State()
@@ -40,41 +38,33 @@ async def handle_change_operation(callback_query: types.CallbackQuery):
 async def handle_operation_selection(
     callback_query: types.CallbackQuery, state: FSMContext
 ):
-    """Обработчик выбора операции."""
-    operation_id = callback_query.data  # Получаем ID операции из callback_data
-    print(f"Operation ID str 45: {operation_id}")  # DEBUG
+    """معالج لاختيار العملية."""
+    operation_id = callback_query.data
     operation_id = operation_id.replace("operation_", "")
-    print(f"Operation ID str 46: {operation_id}, {type(operation_id)}")  # DEBUG
+
     try:
         operations = await get_operation_list()
-        print(f"Operations строка 48: {operations}")  # DEBUG
         selected_operation = next(
             (op for op in operations if op["id"] == int(operation_id)), None
         )
-        print(f"Selected operation str 52: {selected_operation}")  # DEBUG
 
         if selected_operation:
-            # Обновляем состояние
-
             await state.update_data({"selected_operation": selected_operation})
-            # Возврат к статусу после выбора
             await update_status(callback_query, state)
         else:
-            await callback_query.answer("Операция не найдена.", show_alert=True)
+            await callback_query.answer("لم يتم العثور على العملية.", show_alert=True)
     except Exception as e:
-        print(f"Error handling operation selection: {e}")
-        await callback_query.answer("Произошла ошибка.", show_alert=True)
+        await callback_query.answer("حدث خطأ.", show_alert=True)
 
 
 async def ask_quantity(callback_query: types.CallbackQuery, state: FSMContext):
-    """Запрашиваем у пользователя количество."""
+    """طلب الكمية من المستخدم."""
     button = await confirm_quantity()
     await callback_query.message.edit_text(
-        "Введите количество и нажмите подтвердить", reply_markup=button
+        "أدخل الكمية ثم اضغط على تأكيد", reply_markup=button
     )
     current_data = await state.get_data()
     await state.update_data(current_data)
-    # Переходим в состояние ожидания ввода количества
     await state.set_state(QuantityState.waiting_for_quantity)
 
 
@@ -84,8 +74,6 @@ async def save_quantity_to_state(message: types.Message, state: FSMContext):
 
 async def add_quantity(callback_query: types.CallbackQuery, state: FSMContext):
     state_data = await state.get_data()
-    print(f"str state_data 127 {state_data}")
-    await state.update_data(state_data)
 
     try:
         if "quantity" not in state_data:
@@ -96,25 +84,20 @@ async def add_quantity(callback_query: types.CallbackQuery, state: FSMContext):
             quantity = state_data["quantity"]
             quantity = int(quantity)
     except ValueError:
-        await callback_query.message.reply(
-            "Пожалуйста, введите корректное числовое значение."
-        )
+        await callback_query.message.reply("الرجاء إدخال قيمة رقمية صحيحة.")
         return
 
     telegram_id = callback_query.from_user.id
-
     operation_id = state_data["selected_operation"]["id"]
-    print(f"str 98 {operation_id}")
 
     if not operation_id:
-        print("Операция не найдена. str 127")
         return
+
     current_date = datetime.now().date()
     date = state_data.get("selected_date", current_date.isoformat())
     add_goods = state_data["selected_operation"]["add_goods"]
 
     if add_goods:
-        # Записываем операцию
         good_id = state_data.get("good_id", None)
         await record_operation(
             telegram_id=telegram_id,
@@ -123,9 +106,6 @@ async def add_quantity(callback_query: types.CallbackQuery, state: FSMContext):
             date=date,
             goods_id=good_id,
         )
-        logging.info(
-            f"Operation recorded: {operation_id}, {quantity}, {date}, {good_id}"
-        )
     else:
         await record_operation(
             telegram_id=telegram_id,
@@ -133,7 +113,6 @@ async def add_quantity(callback_query: types.CallbackQuery, state: FSMContext):
             quantity=quantity,
             date=date,
         )
-        logging.info(f"Operation recorded: {operation_id}, {quantity}, {date}")
 
     await callback_query.message.delete()
     await update_status(callback_query, state, new_msg=True)
@@ -171,25 +150,19 @@ async def handle_change_good(callback_query: types.CallbackQuery):
 
 
 async def handle_select_good(callback_query: types.CallbackQuery, state: FSMContext):
-    """Обработчик выбора товара."""
-    good_id = callback_query.data
-    print(f"Operation ID str 86: {good_id}")  # DEBUG
-    good_id = good_id.replace("good_", "")
+    """معالج لاختيار المنتج."""
+    good_id = callback_query.data.replace("good_", "")
     try:
         goods = await get_goods_list()
         selected_good = next(
             (good for good in goods if good["id"] == int(good_id)), None
         )
-        print(f"Selected operation str 90: {selected_good}")  # DEBUG
 
         if selected_good:
-            # Обновляем состояние
-
             await state.update_data({"selected_good": selected_good})
-            # Возврат к статусу после выбора
             await update_status(callback_query, state)
         else:
-            await callback_query.answer("Товар не найден.", show_alert=True)
+            await callback_query.answer("لم يتم العثور على المنتج.", show_alert=True)
     except Exception as e:
         print(f"Error handling operation selection: {e}")
 
@@ -214,7 +187,6 @@ async def update_status(
         selected_date = state_data.get("selected_date", date)
         print(f"Goods list строка 186: {goods_list}")  # DEBUG
         selected_good = state_data.get("selected_good", None)
-
 
         if not selected_operation:
             # Получение операции по умолчанию
@@ -257,19 +229,21 @@ async def update_status(
         else:
             # Получаем данные из состояния
             current_operation_name = selected_operation["name"]
+
             print(f"Current operation name from state: {current_operation_name}")
             print(f"Current state_data строка 194: {state_data}")  # DEBUG
         if selected_operation:
             current_operation_name = selected_operation["name"]
         else:
             current_operation_name = "Операция не выбрана"
-        
+
         add_goods = selected_operation["add_goods"]
         await state.update_data({"add_goods": add_goods})
         if add_goods:
             if selected_good is None:
                 selected_good_name = goods_list[0]["name"]
                 good_id = goods_list[0]["id"]
+                print(f"Selected good ID строка 209: {good_id}, name {selected_good_name} ")  # DEBUG
                 await state.update_data({"good_id": good_id})
             else:
                 selected_good_name = selected_good["name"]
@@ -323,11 +297,11 @@ async def handle_go_back(callback_query: types.CallbackQuery, state: FSMContext)
 
 
 async def end_work(callback_query: types.CallbackQuery, state: FSMContext):
-    """Обработчик завершения работы."""
+    """معالج إنهاء العمل."""
     await state.clear()
     button = await start_work_button()
     await callback_query.message.edit_text(
-        "Чтобы начать работу, нажмите кнопку", reply_markup=button
+        "لبدء العمل، اضغط على الزر", reply_markup=button
     )
 
 

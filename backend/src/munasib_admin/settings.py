@@ -30,7 +30,7 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["192.168.8.24", "127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["192.168.8.24", "127.0.0.1", "localhost", "ilmir1988.pythonanywhere.com" ]
 
 
 # Application definition
@@ -112,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = "ru-ru"
+LANGUAGE_CODE = "ar"
 
 TIME_ZONE = "Africa/Cairo"
 

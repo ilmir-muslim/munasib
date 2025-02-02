@@ -198,6 +198,8 @@ async def get_goods_list():
                     for good in data.get("goods", [])
                 ]
                 CacheManager.write_cache(cache_name, goods)
+                print("Goods fetched from server and cached")
+                return goods
 
 async def record_operation(telegram_id: int, operation_id: int, quantity: int, date, goods_id: int = None) -> dict:
     """Отправка данных о выполненной операции."""
@@ -210,7 +212,6 @@ async def record_operation(telegram_id: int, operation_id: int, quantity: int, d
         }
         if goods_id is not None:
             payload["goods_id"] = goods_id
-            
         print(f"Payload 204: {payload}")
         async with session.post("http://127.0.0.1:8000/worker_api/record_operation/", json=payload) as response:
             if response.status == 201:

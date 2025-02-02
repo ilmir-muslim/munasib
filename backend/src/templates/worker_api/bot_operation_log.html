@@ -2,35 +2,33 @@
 {% load django_tables2 %}
 {% load django_tables2 custom_filters %}
 
-
-{% block title %}Журнал операций{% endblock %}
+{% block title %}سجل العمليات{% endblock %}
 
 {% block content %}
-<h1>Журнал операций</h1>
+<h1>سجل العمليات</h1>
 
 <!-- Форма фильтрации -->
 <form method="get">
     <div class="row">
         <!-- Поле для выбора начальной даты -->
         <div class="col-md-4">
-            <label for="id_start_date">С даты:</label>
+            <label for="id_start_date">من تاريخ:</label>
             <input type="text" name="start_date" id="id_start_date" class="form-control datepicker" 
-            placeholder="{{ request.GET.start_date|default:'выберите дату' }}">
+            placeholder="{{ request.GET.start_date|default:'اختر تاريخ' }}">
         </div>
         <!-- Поле для выбора конечной даты -->
         <div class="col-md-4">
-            <label for="id_end_date">По дату:</label>
+            <label for="id_end_date">إلى تاريخ:</label>
             <input type="text" name="end_date" id="id_end_date" class="form-control datepicker" 
-            placeholder="{{ request.GET.end_date|default:'выберите дату' }}" >
+            placeholder="{{ request.GET.end_date|default:'اختر تاريخ' }}" >
         </div>
     </div>
     <div class="mt-3">
-        <button type="submit" class="btn btn-primary">Применить фильтры</button>
+        <button type="submit" class="btn btn-primary">تطبيق الفلاتر</button>
     </div>
 </form>
 
 <br>
-
 
 <!-- Таблица -->
 {% render_table table %}
@@ -39,7 +37,7 @@
 <div class="mt-3">
     <table class="table table-bordered">
         <tr>
-            <td><strong>Итого:</strong></td>
+            <td><strong>الإجمالي:</strong></td>
             <td><strong>{{ total_value }}</strong></td>
         </tr>
     </table>
@@ -53,7 +51,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         flatpickr(".datepicker", {
             dateFormat: "d-m-Y", // Формат даты
-            locale: "ru",       // Русская локализация
+            locale: "ar",       // Арабская локализация
         });
     });
 </script>

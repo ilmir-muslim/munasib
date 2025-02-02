@@ -6,12 +6,12 @@ from .models import Operation, OperationLog, Worker
 class OperationLogFilter(django_filters.FilterSet):
     operation = django_filters.ModelChoiceFilter(
         queryset=Operation.objects.all(),
-        label="Операция",
+        label="العملية",  # Операция -> العملية
         widget=forms.Select(attrs={'class': 'select2'})
     )
     worker = django_filters.ModelChoiceFilter(
         queryset=Worker.objects.all(),
-        label="Работник",
+        label="الموظف",  # Работник -> الموظف
         widget=forms.Select(attrs={'class': 'select2'})
     )
 

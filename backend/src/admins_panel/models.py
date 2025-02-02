@@ -5,51 +5,49 @@ from django.utils.timezone import now
 
 
 class Operation(models.Model):
-    name = models.CharField("Операции", max_length=50)
-    price = models.FloatField("Цена операции")
-    add_goods = models.BooleanField("Добавление товара", default=False)
-
+    name = models.CharField("العملية", max_length=50)  # Операции -> العملية
+    price = models.FloatField("سعر العملية")  # Цена операции -> سعر العملية
+    add_goods = models.BooleanField("إضافة سلعة", default=False)  # Добавление товара -> إضافة سلعة
 
     class Meta:
-        verbose_name = "Операция"
-        verbose_name_plural = "Операции"
+        verbose_name = "العملية"  # Операция -> العملية
+        verbose_name_plural = "العمليات"  # Операции -> العمليات
 
     def __str__(self):
         return self.name
 
 
 class Position(models.Model):
-    name = models.CharField("Должность", max_length=50)
+    name = models.CharField("المنصب", max_length=50)  # Должность -> المنصب
     default_operation = models.ForeignKey(
         Operation, on_delete=models.SET_NULL, null=True, blank=True
     )
-    admins_rights = models.BooleanField("Права админа", default=False)
-
+    admins_rights = models.BooleanField("صلاحيات المدير", default=False)  # Права админа -> صلاحيات المدير
 
     class Meta:
-        verbose_name = "Должность"
-        verbose_name_plural = "Должности"
+        verbose_name = "المنصب"  # Должность -> المنصب
+        verbose_name_plural = "المناصب"  # Должности -> المناصب
 
     def __str__(self):
         return self.name
 
 
 class Worker(models.Model):
-    name = models.CharField("Работник", max_length=50)
+    name = models.CharField("الموظف", max_length=50)  # Работник -> الموظف
     position = models.ForeignKey(Position, on_delete=models.CASCADE, null=True)
-    telegram_id = models.IntegerField("ID телеграм", unique=True, null=True)
-    have_telegram = models.BooleanField("Есть телеграм", default=True)
-    salary = models.FloatField("зарплата", default=0)
+    telegram_id = models.IntegerField("معرف التليجرام", unique=True, null=True)  # ID телеграм -> معرف التليجرام
+    have_telegram = models.BooleanField("لديه تليجرام", default=True)  # Есть телеграм -> لديه تليجرام
+    salary = models.FloatField("الراتب", default=0)  # зарплата -> الراتب
 
     @staticmethod
     def get_deleted_worker():
         return Worker.objects.get_or_create(
-            name="Удаленный работник", defaults={"salary": 0}
+            name="موظف محذوف", defaults={"salary": 0}  # Удаленный работник -> موظف محذوف
         )[0]
 
     class Meta:
-        verbose_name = "Работник"
-        verbose_name_plural = "Работники"
+        verbose_name = "الموظف"  # Работник -> الموظف
+        verbose_name_plural = "الموظفون"  # Работники -> الموظفون
 
     def __str__(self):
         return self.name
@@ -68,22 +66,22 @@ class OperationLog(models.Model):
         Worker, on_delete=models.SET_DEFAULT, default=Worker.get_deleted_worker
     )
     operation = models.ForeignKey(Operation, on_delete=models.CASCADE)
-    date = models.DateTimeField("Дата выполнения работ", default=now)
-    quantity = models.IntegerField("Количество выполненных работ")
+    date = models.DateTimeField("تاريخ تنفيذ العمل", default=now)  # Дата выполнения работ -> تاريخ تنفيذ العمل
+    quantity = models.IntegerField("كمية الأعمال المنفذة")  # Количество выполненных работ -> كمية الأعمال المنفذة
     goods = models.ForeignKey(  # Ссылка на существующий товар
         "Goods",
         on_delete=models.CASCADE,
-        verbose_name="Товар",
+        verbose_name="السلعة",  # Товар -> السلعة
         null=True,
         blank=True,  # Если операция не связана с товаром
     )
 
     class Meta:
-        verbose_name = "Выполненная работа"
-        verbose_name_plural = "Выполненные работы"
+        verbose_name = "العمل المنفذ"  # Выполненная работа -> العمل المنفذ
+        verbose_name_plural = "الأعمال المنفذة"  # Выполненные работы -> الأعمال المنفذة
 
     def __str__(self):
-        return f"Операция: {self.operation.name}, выполнил: {self.worker.name}"
+        return f"العملية: {self.operation.name}, المنفذ: {self.worker.name}, التاريخ: {self.date}"  # Операция -> العملية, выполнил -> المنفذ, дата -> التاريخ
 
 
 @receiver(post_save, sender=OperationLog)
@@ -94,12 +92,12 @@ def update_worker_salary(sender, instance, created, **kwargs):
 
 
 class Goods(models.Model):
-    name = models.CharField("Товар", max_length=50)
-    price = models.FloatField("Цена товара")
+    name = models.CharField("السلعة", max_length=50)  # Товар -> السلعة
+    price = models.FloatField("سعر السلعة")  # Цена товара -> سعر السلعة
 
     class Meta:
-        verbose_name = "Товар"
-        verbose_name_plural = "Товары"
+        verbose_name = "السلعة"  # Товар -> السلعة
+        verbose_name_plural = "السلع"  # Товары -> السلع
 
     def __str__(self):
         return self.name
@@ -110,13 +108,13 @@ class GoodsLog(models.Model):
         Worker, on_delete=models.SET_DEFAULT, default=Worker.get_deleted_worker
     )
     goods = models.ForeignKey(Goods, on_delete=models.CASCADE)
-    quantity = models.IntegerField("Количество товара")
-    release_date = models.DateField("Дата выпуска товара", default=now)
-    selling_date = models.DateField("Дата продажи товара", null=True, blank=True)
+    quantity = models.IntegerField("كمية السلعة")  # Количество товара -> كمية السلعة
+    release_date = models.DateField("تاريخ إصدار السلعة", default=now)  # Дата выпуска товара -> تاريخ إصدار السلعة
+    selling_date = models.DateField("تاريخ بيع السلعة", null=True, blank=True)  # Дата продажи товара -> تاريخ بيع السلعة
 
     class Meta:
-        verbose_name = "Выпущенный товар"
-        verbose_name_plural = "Выпущенные товары"
+        verbose_name = "السلعة المصدرة"  # Выпущенный товар -> السلعة المصدرة
+        verbose_name_plural = "السلع المصدرة"  # Выпущенные товары -> السلع المصدرة
 
     def __str__(self):
-        return f"Товар: {self.goods.name}, выпустил: {self.worker.name}"
+        return f"السلعة: {self.goods.name}, المصدر: {self.worker.name}, تاريخ الإصدار: {self.release_date}"  # Товар -> السلعة, выпустил -> المصدر, дата выпуска -> تاريخ الإصدار

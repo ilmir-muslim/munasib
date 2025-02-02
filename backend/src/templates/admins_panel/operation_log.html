@@ -3,23 +3,23 @@
 {% load django_tables2 custom_filters %}
 
 
-{% block title %}Журнал операций{% endblock %}
+{% block title %}سجل العمليات{% endblock %}  <!-- Журнал операций -> سجل العمليات -->
 
 {% block content %}
-<h1>Журнал операций</h1>
+<h1>سجل العمليات</h1>  <!-- Журнал операций -> سجل العمليات -->
 
 <!-- Форма фильтрации -->
 <form method="get">
     <div class="row">
         <div class="col-md-4">
-            <label for="id_start_date">С даты:</label>
+            <label for="id_start_date">من تاريخ:</label>  <!-- С даты -> من تاريخ -->
             <input type="text" name="start_date" id="id_start_date" class="form-control datepicker" 
-                   placeholder="{{ request.GET.start_date|default:'выберите дату' }}">
+                   placeholder="{{ request.GET.start_date|default:'اختر تاريخًا' }}">  <!-- выберите дату -> اختر تاريخًا -->
         </div>
         <div class="col-md-4">
-            <label for="id_end_date">По дату:</label>
+            <label for="id_end_date">إلى تاريخ:</label>  <!-- По дату -> إلى تاريخ -->
             <input type="text" name="end_date" id="id_end_date" class="form-control datepicker" 
-                   placeholder="{{ request.GET.end_date|default:'выберите дату' }}">
+                   placeholder="{{ request.GET.end_date|default:'اختر تاريخًا' }}">  <!-- выберите дату -> اختر تاريخًا -->
         </div>
         <div class="col-md-4">
             {{ filter.form.operation }}
@@ -27,8 +27,8 @@
         </div>
     </div>
     <div class="mt-3">
-        <button type="submit" class="btn btn-primary">Применить фильтры</button>
-        <a href="{% url 'operation_log_list' %}" class="btn btn-secondary">Сбросить фильтры</a>
+        <button type="submit" class="btn btn-primary">تطبيق الفلاتر</button>  <!-- Применить фильтры -> تطبيق الفلاتر -->
+        <a href="{% url 'operation_log_list' %}" class="btn btn-secondary">إعادة تعيين الفلاتر</a>  <!-- Сбросить фильтры -> إعادة تعيين الفلاتر -->
     </div>
 </form>
 
@@ -42,7 +42,7 @@
 <div class="mt-3">
     <table class="table table-bordered">
         <tr>
-            <td><strong>Итого:</strong></td>
+            <td><strong>الإجمالي:</strong></td>  <!-- Итого -> الإجمالي -->
             <td><strong>{{ total_value }}</strong></td>
         </tr>
     </table>
@@ -56,7 +56,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         flatpickr(".datepicker", {
             dateFormat: "d-m-Y", // Формат даты
-            locale: "ru",       // Русская локализация
+            locale: "ar",       // Русская локализация заменена на арабскую
         });
     });
 </script>

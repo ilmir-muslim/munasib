@@ -42,7 +42,7 @@ class RegisterNewUserView(APIView):
         # Валидация входных данных
         if not all([name, position_id, telegram_id]):
             return Response(
-                {"error": "name, position_id, and telegram_id are required."},
+                {"error": "الاسم، المعرف الوظيفي، ومعرف التليجرام مطلوبون."},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
@@ -53,7 +53,7 @@ class RegisterNewUserView(APIView):
 
         # Ответ пользователю
         return Response(
-            {"message": "User successfully registered."},
+            {"message": "تم تسجيل المستخدم بنجاح."},
             status=status.HTTP_201_CREATED,
         )
 
@@ -67,9 +67,9 @@ class CheckAdminsRightsView(APIView):
             return Response({"admins_rights": worker.position.admins_rights})
 
         except Worker.DoesNotExist:
-            return Response({"error": "Worker not found"}, status=404)
+            return Response({"error": "العامل غير موجود"}, status=404)
         except Position.DoesNotExist:
-            return Response({"error": "Position not found"}, status=404)
+            return Response({"error": "الموضع غير موجود"}, status=404)
 
 
 class Positions(APIView):
@@ -91,16 +91,16 @@ class StatusWindowView(APIView):
         try:
             worker = Worker.objects.get(telegram_id=telegram_id)
             user_status = {
-                "Работник": worker.name,
-                "должность": worker.position.name,
-                "зарплата": worker.salary,
+                "عامل": worker.name,
+                "المنصب": worker.position.name,
+                "الراتب": worker.salary,
             }
 
             print(user_status)
             return Response({"user_status": user_status})
 
         except Worker.DoesNotExist:
-            return Response({"error": "Worker not found"}, status=404)
+            return Response({"error": "العامل غير موجود"}, status=404)
 
 
 class WorksDoneToday(APIView):
@@ -136,7 +136,7 @@ class WorksDoneToday(APIView):
             )
 
         except Worker.DoesNotExist:
-            return Response({"error": "Worker not found"}, status=404)
+            return Response({"error": "العامل غير موجود"}, status=404)
 
 
 class WorkersStaticInfo(APIView):
@@ -209,6 +209,7 @@ class BotOperationLogListView(OperationLogListView):
 class RecordOperationView(APIView):
 
     permission_classes = [AllowAny]
+
     def post(self, request, *args, **kwargs):
         # Извлечение данных из запроса
         telegram_id = request.data.get("telegram_id")
@@ -220,30 +221,34 @@ class RecordOperationView(APIView):
         # Валидация входных данных
         if not all([telegram_id, operation_id, quantity]):
             return Response(
-                {"error": "worker_id, operation_id, and quantity are required."},
+                {"error": "معرف العامل، معرف العملية، والكمية مطلوبون."},
                 status=status.HTTP_400_BAD_REQUEST,
             )
         quantity = int(quantity)
         worker = Worker.objects.get(telegram_id=telegram_id)
         operation = Operation.objects.get(id=operation_id)
-        
-         # Обработка goods_id только если он передан и не равен None
+
+        # Обработка goods_id только если он передан и не равен None
         goods = None
         if goods_id is not None:  # Проверяем, что goods_id не None
             try:
                 goods = Goods.objects.get(id=goods_id)
             except Goods.DoesNotExist:
                 return Response(
-                    {"error": "Goods with the provided ID does not exist."},
+                    {"error": "البضائع بالمعرف المقدم غير موجودة."},
                     status=status.HTTP_400_BAD_REQUEST,
                 )
 
         # Создание записи OperationLog
         OperationLog.objects.create(
-            worker=worker, operation=operation, goods=goods, quantity=quantity, date=date
+            worker=worker,
+            operation=operation,
+            goods=goods,
+            quantity=quantity,
+            date=date,
         )
         # Ответ пользователю
         return Response(
-            {"message": "Operation successfully recorded."},
+            {"message": "تم تسجيل العملية بنجاح."},
             status=status.HTTP_201_CREATED,
         )
