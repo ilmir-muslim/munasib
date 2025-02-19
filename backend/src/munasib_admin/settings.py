@@ -28,9 +28,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ["192.168.8.24", "127.0.0.1", "localhost", "ilmir1988.pythonanywhere.com" ]
+ALLOWED_HOSTS = ["192.168.8.24", "127.0.0.1", "localhost", "backend", "nginx"]
 
 
 # Application definition
@@ -83,11 +83,16 @@ WSGI_APPLICATION = "munasib_admin.wsgi.application"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv("DB_NAME"),
+        'USER': os.getenv("DB_USER"),
+        'PASSWORD': os.getenv("DB_PASSWORD"),
+        'HOST': os.getenv("DB_HOST"),
+        'PORT': os.getenv("DB_PORT"),
     }
 }
+
 
 
 # Password validation
@@ -125,6 +130,7 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -140,46 +146,4 @@ REST_FRAMEWORK = {
     ],
 }
 
-LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "formatters": {
-        "verbose": {
-            "format": "{levelname} {asctime} {module} {message}",
-            "style": "{",
-        },
-        "simple": {
-            "format": "{levelname} {message}",
-            "style": "{",
-        },
-    },
-    "handlers": {
-        "file": {
-            "level": "INFO",
-            "class": "logging.FileHandler",
-            "filename": os.path.join(
-                BASE_DIR, "project.log"
-            ),  # Укажите путь к файлу логов
-            "formatter": "verbose",
-        },
-        "console": {
-            "level": "DEBUG",
-            "class": "logging.StreamHandler",
-            "formatter": "simple",
-        },
-    },
-    "loggers": {
-        "django": {
-            "handlers": ["file", "console"],
-            "level": "INFO",  # Уровень логгирования
-            "propagate": True,
-        },
-        "custom_logger": {
-            "handlers": ["file", "console"],
-            "level": "DEBUG",
-            "propagate": False,
-        },
-    },
-}
-
-CSRF_TRUSTED_ORIGINS = ["https://fe98-196-159-192-182.ngrok-free.app"]
+DEFAULT_URL = "http://localhost"

@@ -1,0 +1,55 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_USER: munasib
+      POSTGRES_PASSWORD: munasib
+      POSTGRES_DB: munasib
+    ports:
+      - "5432:5432"
+    networks:
+      - munasib-network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: ./backend 
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+    environment:
+      DB_NAME: "munasib"
+      DB_USER: "munasib"
+      DB_PASSWORD: "munasib"
+      DB_HOST: "postgres"
+      DB_PORT: "5432"
+      DJANGO_SECRET_KEY: "${DJANGO_SECRET_KEY}"
+    networks:
+      - munasib-network
+    volumes:
+      - static_data:/app/staticfiles
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - static_data:/app/staticfiles
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - munasib-network
+    depends_on:
+      - backend
+
+
+
+networks:
+  munasib-network:
+
+volumes:
+  postgres_data:
+  static_data:

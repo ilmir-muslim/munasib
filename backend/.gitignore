@@ -1,11 +1,8 @@
 #python stuff
-.venv/
+env/
 .pylintrc
 __pycache__/
 .env
 #ide stuff
 .vscode/
-
-#django stuff
-db.sqlite3
-project.log
+staticfiles/
