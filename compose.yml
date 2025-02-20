@@ -7,7 +7,7 @@ services:
       POSTGRES_PASSWORD: munasib
       POSTGRES_DB: munasib
     ports:
-      - "5432:5432"
+      - "5433:5432"
     networks:
       - munasib-network
     volumes:
@@ -32,6 +32,18 @@ services:
     volumes:
       - static_data:/app/staticfiles
 
+  bot:
+    build:
+      context: ./bot
+    container_name: bot
+    depends_on:
+      - backend
+    environment:
+      API_URL: "http://backend:8000/worker_api"
+      TELEGRAM_TOKEN: "${TELEGRAM_TOKEN}"
+    networks:
+      - munasib-network
+
   nginx:
     image: nginx:latest
     container_name: nginx
@@ -44,8 +56,6 @@ services:
       - munasib-network
     depends_on:
       - backend
-
-
 
 networks:
   munasib-network:
